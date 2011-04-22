@@ -1,0 +1,34 @@
+TODO:
+
+- compare references as dictated by compiler, versus those specified in projects/solution
+- recent files list
+
+- analyser constructors to take filenames
+
+- support vs 8.0 sln files
+- remember user's preferences for exclusion
+
+- support merging of multiple solution files
+- allow multiple select in Open dialog
+- allow printing of the image
+- use colouring/shapes on graph
+  - indicate assemblies loaded from GAC, and those loaded from root directory
+  - colour for those with more/less/no dependancies/dependants
+- reintroduce 'extra commands' to DotCommandBuilder
+- progress bar
+- show number of dependants/dependancies in exclusion list
+- menu items to show/hide all System.*
+- colour coding for nodes using wildcards (e.g. System.* = blue)
+
+DONE:
+
+- support merging additional .dll/.exe asseblies when started with a .exe or .dll
+- fix 'save png' to save to temp file and copy (needed to close FileStream before calling GDI+ save method)
+- use template for temp file names, so can clean up behind Wingraphviz (or dispose)
+- tidy code for loading of assemblies
+- extract class to create DependancyGraph (build graph in a single object instance)
+- allow exclusion of selected assembly names, eg 'mscorlib' (maintain exclusion list in DotCommandBuilder)
+- populate exclusion list from actual nodes in diagram
+- sort exclusion list alphabetically
+- set cursor to hourglass while calculating
+- use DialogResult==OK instead of handling OK click event for open/save dialogs
