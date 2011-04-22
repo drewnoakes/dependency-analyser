@@ -13,10 +13,10 @@ TODO:
 - allow printing of the image
 - use colouring/shapes on graph
   - indicate assemblies loaded from GAC, and those loaded from root directory
-  - colour for those with more/less/no dependancies/dependants
+  - colour for those with more/less/no dependencies/dependants
 - reintroduce 'extra commands' to DotCommandBuilder
 - progress bar
-- show number of dependants/dependancies in exclusion list
+- show number of dependants/dependencies in exclusion list
 - menu items to show/hide all System.*
 - colour coding for nodes using wildcards (e.g. System.* = blue)
 
@@ -26,7 +26,7 @@ DONE:
 - fix 'save png' to save to temp file and copy (needed to close FileStream before calling GDI+ save method)
 - use template for temp file names, so can clean up behind Wingraphviz (or dispose)
 - tidy code for loading of assemblies
-- extract class to create DependancyGraph (build graph in a single object instance)
+- extract class to create DependencyGraph (build graph in a single object instance)
 - allow exclusion of selected assembly names, eg 'mscorlib' (maintain exclusion list in DotCommandBuilder)
 - populate exclusion list from actual nodes in diagram
 - sort exclusion list alphabetically
