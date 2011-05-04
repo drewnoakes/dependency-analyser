@@ -8,19 +8,12 @@ namespace Drew.DependencyAnalyser
     /// </summary>
     public sealed class DotCommandBuilder
     {
-        public List<string> ExclusionList { get; private set; }
-
-        public DotCommandBuilder()
+        public string GenerateDotCommand(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences)
         {
-            ExclusionList = new List<string>();
+            return GenerateDotCommand(graph, filterPreferences, string.Empty);
         }
 
-        public string GenerateDotCommand(DependencyGraph<string> graph)
-        {
-            return GenerateDotCommand(graph, string.Empty);
-        }
-
-        public string GenerateDotCommand(DependencyGraph<string> graph, string extraCommands)
+        public string GenerateDotCommand(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences, string extraCommands)
         {
             var nodes = graph.GetNodes();
 
@@ -49,7 +42,7 @@ namespace Drew.DependencyAnalyser
             foreach (var dependant in nodes)
             {
                 // make sure the dependant should be plotted
-                if (!IncludeInPlot(dependant))
+                if (!filterPreferences.IncludeInPlot(dependant))
                     continue;
 
                 var dependantId = idsByNameMap[dependant];
@@ -60,7 +53,7 @@ namespace Drew.DependencyAnalyser
                 foreach (var dependency in graph.GetDependenciesForNode(dependant))
                 {
                     var dependencyId = idsByNameMap[dependency];
-                    if (!IncludeInPlot(dependency))
+                    if (!filterPreferences.IncludeInPlot(dependency))
                         continue;
                     commandText.AppendFormat("    {0} -> {1};\r\n", dependantId, dependencyId);
                 }
@@ -70,11 +63,6 @@ namespace Drew.DependencyAnalyser
             commandText.Append("}");
 
             return commandText.ToString();
-        }
-
-        private bool IncludeInPlot(string node)
-        {
-            return !ExclusionList.Contains(node);
         }
     }
 }

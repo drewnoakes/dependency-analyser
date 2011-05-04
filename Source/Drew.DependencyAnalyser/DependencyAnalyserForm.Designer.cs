@@ -21,7 +21,7 @@ namespace Drew.DependencyAnalyser
             }
 
             // delete up our temporary files
-            _tempFileManager.DeleteAllTemporaryFiles();
+            TemporaryFileManager.DeleteAllTemporaryFiles();
 
             base.Dispose(disposing);
         }
@@ -39,21 +39,16 @@ namespace Drew.DependencyAnalyser
             System.Windows.Forms.MenuItem _mnuFileOpen;
             System.Windows.Forms.MenuItem _mnuFileSeparator;
             System.Windows.Forms.MenuItem _mnuFileExit;
-            System.Windows.Forms.MenuItem _mnuView;
-            System.Windows.Forms.MenuItem _mnuHelp;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DependencyAnalyserForm));
-            this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this._menu = new System.Windows.Forms.MainMenu(this.components);
             this._mnuFileMerge = new System.Windows.Forms.MenuItem();
             this._mnuFileSavePng = new System.Windows.Forms.MenuItem();
             this._mnuFileSaveSvg = new System.Windows.Forms.MenuItem();
             this._mnuFilePrint = new System.Windows.Forms.MenuItem();
             this._mnuFilePrintPreview = new System.Windows.Forms.MenuItem();
-            this._mnuFileClose = new System.Windows.Forms.MenuItem();
-            this._mnuViewRefresh = new System.Windows.Forms.MenuItem();
-            this._mnuExclude = new System.Windows.Forms.MenuItem();
-            this._mnuFilter = new System.Windows.Forms.MenuItem();
             this._mnuAbout = new System.Windows.Forms.MenuItem();
+            this._openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this._menu = new System.Windows.Forms.MainMenu(this.components);
+            this._mnuFilter = new System.Windows.Forms.MenuItem();
             this._savePngFileDialog = new System.Windows.Forms.SaveFileDialog();
             this._saveSvgFileDialog = new System.Windows.Forms.SaveFileDialog();
             this._printDialog = new System.Windows.Forms.PrintDialog();
@@ -69,29 +64,12 @@ namespace Drew.DependencyAnalyser
             _mnuFileOpen = new System.Windows.Forms.MenuItem();
             _mnuFileSeparator = new System.Windows.Forms.MenuItem();
             _mnuFileExit = new System.Windows.Forms.MenuItem();
-            _mnuView = new System.Windows.Forms.MenuItem();
-            _mnuHelp = new System.Windows.Forms.MenuItem();
             this._tabPageMessages.SuspendLayout();
             this._tabPageDotOutput.SuspendLayout();
             this._tabPageImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._imgDotDiagram)).BeginInit();
             this._tabControl.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // openFileDialog1
-            // 
-            this._openFileDialog.Filter = "All supported files|*.sln;*.exe;*.dll|Solution files (*.sln)|*.sln|Assemblies (*." +
-                "dll)|*.dll|Assemblies (*.exe)|*.exe|All files|*.exe";
-            this._openFileDialog.Title = "Open File";
-            // 
-            // _menu
-            // 
-            this._menu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            _mnuFile,
-            _mnuView,
-            this._mnuExclude,
-            this._mnuFilter,
-            _mnuHelp});
             // 
             // _mnuFile
             // 
@@ -103,7 +81,6 @@ namespace Drew.DependencyAnalyser
             this._mnuFileSaveSvg,
             this._mnuFilePrint,
             this._mnuFilePrintPreview,
-            this._mnuFileClose,
             _mnuFileSeparator,
             _mnuFileExit});
             _mnuFile.Text = "&File";
@@ -147,60 +124,41 @@ namespace Drew.DependencyAnalyser
             this._mnuFilePrintPreview.Text = "Print preview...";
             this._mnuFilePrintPreview.Click += new System.EventHandler(this.menuFilePrintPreview_Click);
             // 
-            // _mnuFileClose
-            // 
-            this._mnuFileClose.Index = 6;
-            this._mnuFileClose.Text = "&Close";
-            this._mnuFileClose.Click += new System.EventHandler(this.menuFileClose_Click);
-            // 
             // _mnuFileSeparator
             // 
-            _mnuFileSeparator.Index = 7;
+            _mnuFileSeparator.Index = 6;
             _mnuFileSeparator.Text = "-";
             // 
             // _mnuFileExit
             // 
-            _mnuFileExit.Index = 8;
+            _mnuFileExit.Index = 7;
             _mnuFileExit.Text = "E&xit";
             _mnuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
             // 
-            // _mnuView
+            // _mnuAbout
             // 
-            _mnuView.Index = 1;
-            _mnuView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this._mnuViewRefresh});
-            _mnuView.Text = "&View";
+            this._mnuAbout.Index = 2;
+            this._mnuAbout.Text = "About...";
+            this._mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
-            // _mnuViewRefresh
+            // _openFileDialog
             // 
-            this._mnuViewRefresh.Index = 0;
-            this._mnuViewRefresh.Shortcut = System.Windows.Forms.Shortcut.F5;
-            this._mnuViewRefresh.Text = "&Refresh";
-            this._mnuViewRefresh.Click += new System.EventHandler(this.menuViewRefresh_Click);
+            this._openFileDialog.Filter = "All supported files|*.sln;*.exe;*.dll|Solution files (*.sln)|*.sln|Assemblies (*." +
+                "dll)|*.dll|Assemblies (*.exe)|*.exe|All files|*.exe";
+            this._openFileDialog.Title = "Open File";
             // 
-            // _mnuExclude
+            // _menu
             // 
-            this._mnuExclude.Index = 2;
-            this._mnuExclude.Text = "E&xclude";
+            this._menu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            _mnuFile,
+            this._mnuFilter,
+            this._mnuAbout});
             // 
             // _mnuFilter
             // 
-            this._mnuFilter.Index = 3;
-            this._mnuFilter.Text = "F&ilter";
+            this._mnuFilter.Index = 1;
+            this._mnuFilter.Text = "F&ilter...";
             this._mnuFilter.Click += new System.EventHandler(this.menuFilter_Click);
-            // 
-            // _mnuHelp
-            // 
-            _mnuHelp.Index = 4;
-            _mnuHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this._mnuAbout});
-            _mnuHelp.Text = "&Help";
-            // 
-            // _mnuAbout
-            // 
-            this._mnuAbout.Index = 0;
-            this._mnuAbout.Text = "About...";
-            this._mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
             // _savePngFileDialog
             // 
@@ -226,7 +184,7 @@ namespace Drew.DependencyAnalyser
             // _tabPageMessages
             // 
             this._tabPageMessages.Controls.Add(this._txtMessage);
-            this._tabPageMessages.Location = new System.Drawing.Point(4, 22);
+            this._tabPageMessages.Location = new System.Drawing.Point(4, 4);
             this._tabPageMessages.Name = "_tabPageMessages";
             this._tabPageMessages.Size = new System.Drawing.Size(680, 343);
             this._tabPageMessages.TabIndex = 2;
@@ -245,7 +203,7 @@ namespace Drew.DependencyAnalyser
             // _tabPageDotOutput
             // 
             this._tabPageDotOutput.Controls.Add(this._txtDotScriptOutput);
-            this._tabPageDotOutput.Location = new System.Drawing.Point(4, 22);
+            this._tabPageDotOutput.Location = new System.Drawing.Point(4, 4);
             this._tabPageDotOutput.Name = "_tabPageDotOutput";
             this._tabPageDotOutput.Size = new System.Drawing.Size(680, 343);
             this._tabPageDotOutput.TabIndex = 0;
@@ -264,7 +222,7 @@ namespace Drew.DependencyAnalyser
             // _tabPageImage
             // 
             this._tabPageImage.Controls.Add(this._imgDotDiagram);
-            this._tabPageImage.Location = new System.Drawing.Point(4, 22);
+            this._tabPageImage.Location = new System.Drawing.Point(4, 4);
             this._tabPageImage.Name = "_tabPageImage";
             this._tabPageImage.Size = new System.Drawing.Size(680, 343);
             this._tabPageImage.TabIndex = 1;
@@ -282,6 +240,7 @@ namespace Drew.DependencyAnalyser
             // 
             // _tabControl
             // 
+            this._tabControl.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this._tabControl.Controls.Add(this._tabPageImage);
             this._tabControl.Controls.Add(this._tabPageDotOutput);
             this._tabControl.Controls.Add(this._tabPageMessages);
@@ -320,8 +279,6 @@ namespace Drew.DependencyAnalyser
 
         private MainMenu _menu;
         private MenuItem _mnuAbout;
-        private MenuItem _mnuExclude;
-        private MenuItem _mnuViewRefresh;
         private MenuItem _mnuFileSavePng;
         private MenuItem _mnuFileSaveSvg;
         private MenuItem _mnuFilePrint;
@@ -337,6 +294,6 @@ namespace Drew.DependencyAnalyser
         private TabControl _tabControl;
 
         #endregion
-        private MenuItem _mnuFileClose;
+
     }
 }

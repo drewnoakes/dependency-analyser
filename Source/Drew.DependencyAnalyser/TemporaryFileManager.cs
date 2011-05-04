@@ -5,32 +5,27 @@ namespace Drew.DependencyAnalyser
 {
     public class TemporaryFileManager
     {
-        Random _random = new Random();
-
-        public TemporaryFileManager()
-        {
-        }
+        private readonly Random _random = new Random();
 
         public string CreateTemporaryFile()
         {
-            string tempFilename = GenerateTemporaryFilename();
-            while (File.Exists(tempFilename)) 
-            {
+            var tempFilename = GenerateTemporaryFilename();
+            while (File.Exists(tempFilename))
                 tempFilename = GenerateTemporaryFilename();
-            }
             File.Create(tempFilename).Close();
             return tempFilename;
         }
 
-        string GenerateTemporaryFilename()
+        private string GenerateTemporaryFilename()
         {
+            // TODO loop until file not found
             return Path.Combine(Path.GetTempPath(), String.Format("DependencyAnaylser.{0:X}.tmp", _random.Next(int.MaxValue >> 4)));
         }
 
-        public void DeleteAllTemporaryFiles()
+        public static void DeleteAllTemporaryFiles()
         {
-            string[] filenames = GetExistingTemporaryFilenames();
-            foreach (string filename in filenames)
+            var filenames = GetExistingTemporaryFilenames();
+            foreach (var filename in filenames)
             {
                 try
                 {
@@ -43,14 +38,12 @@ namespace Drew.DependencyAnalyser
             }
         }
 
-        public string[] GetExistingTemporaryFilenames()
+        public static string[] GetExistingTemporaryFilenames()
         {
-            FileInfo[] fileInfoArray = new DirectoryInfo(Path.GetTempPath()).GetFiles("DependencyAnaylser.*.tmp");
-            string[] filenames = new string[fileInfoArray.Length];
-            for (int index=0; index<fileInfoArray.Length; index++)
-            {
+            var fileInfoArray = new DirectoryInfo(Path.GetTempPath()).GetFiles("DependencyAnaylser.*.tmp");
+            var filenames = new string[fileInfoArray.Length];
+            for (var index = 0; index < fileInfoArray.Length; index++)
                 filenames[index] = fileInfoArray[index].FullName;
-            }
             return filenames;
         }
     }

@@ -11,6 +11,7 @@ namespace Drew.DependencyAnalyser
         [STAThread]
         private static void Main()
         {
+            Application.EnableVisualStyles();
             Application.Run(new DependencyAnalyserForm());
         }
     }

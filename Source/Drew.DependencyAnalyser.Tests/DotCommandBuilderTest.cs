@@ -13,8 +13,9 @@ namespace Drew.DependencyAnalyser.Tests
             var graph = new DependencyGraph<string>();
             graph.AddDependency("A", "B");
 
-            var builder = new DotCommandBuilder();
-            var command = builder.GenerateDotCommand(graph);
+            var filterPreferences = new AssemblyFilterPreferences();
+            filterPreferences.SetAssemblyNames(graph.GetNodes());
+            var command = new DotCommandBuilder().GenerateDotCommand(graph, filterPreferences);
             
             const string expected = @"digraph G {
     1 -> 2;
@@ -33,9 +34,11 @@ namespace Drew.DependencyAnalyser.Tests
             graph.AddDependency("B", "C");
             graph.AddDependency("C", "A");
 
-            var builder = new DotCommandBuilder();
-            builder.ExclusionList.Add("C");
-            var command = builder.GenerateDotCommand(graph);
+            var filterPreferences = new AssemblyFilterPreferences();
+            filterPreferences.SetAssemblyNames(graph.GetNodes());
+            filterPreferences.Exclude("C");
+
+            var command = new DotCommandBuilder().GenerateDotCommand(graph, filterPreferences);
             
             const string expected = @"digraph G {
     1 -> 2;

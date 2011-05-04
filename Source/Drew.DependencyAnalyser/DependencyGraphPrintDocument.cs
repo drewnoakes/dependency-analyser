@@ -33,7 +33,7 @@ namespace Drew.DependencyAnalyser
 
             using (var font = new Font("Arial", 8))
             {
-                args.Graphics.DrawString("Created using .NET Dependency Analyser - http://drewnoakes.com/code/", font, Brushes.Black, leftMargin, bottomMargin - font.Height, new StringFormat());
+                args.Graphics.DrawString("Created using .NET Dependency Analyser - http://drewnoakes.com/code/dependency-analyser/", font, Brushes.Black, leftMargin, bottomMargin - font.Height, new StringFormat());
 
                 // maximise image on page without distorting dimensions
                 args.Graphics.DrawImage(_dotImage, leftMargin, topMargin, availableWidth, availableHeight - font.Height);
