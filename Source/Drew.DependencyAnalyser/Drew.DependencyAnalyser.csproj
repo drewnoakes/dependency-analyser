@@ -10,7 +10,7 @@
     <ApplicationIcon>App.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Drew.DependencyAnalyser</AssemblyName>
+    <AssemblyName>DependencyAnalyser</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AppDesignerFolder>Properties</AppDesignerFolder>

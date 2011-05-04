@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 //
 [assembly: AssemblyTitle("Drew.DependencyAnalyser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A simple WinForms application that displays a directed graph detailing the inheritance hierarchy between a set of .NET assemblies.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("http://drewnoakes.com")]
 [assembly: AssemblyProduct("")]
 [assembly: AssemblyCopyright("Copyright © Drew Noakes 2003-2011")]
 [assembly: AssemblyTrademark("")]
@@ -27,7 +27,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.1.*")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
@@ -57,7 +57,7 @@ using System.Runtime.InteropServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 //[assembly: AssemblyKeyName("")]
-[assembly: AssemblyFileVersionAttribute("1.0.0.0")]
+[assembly: AssemblyFileVersionAttribute("1.1.0.0")]
 [assembly: GuidAttribute("96C2E856-EA3A-46AD-957E-02A1FB4D1138")]
 
 [assembly: InternalsVisibleTo("Drew.DependencyAnalyser.Tests")]
