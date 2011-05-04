@@ -42,16 +42,11 @@ namespace Drew.DependencyAnalyser
 
         private void OnCancel()
         {
-            OnAccept();
-        }
-
-        private void OnAccept()
-        {
             Hide();
             for (var r = 0; r < clbIncludes.Items.Count; r++)
             {
                 var dependency = clbIncludes.Items[r].ToString().ToUpper();
-                //Hardcoded index into the "Exclude" menu. 
+                // Hardcoded index into the "Exclude" menu. 
                 foreach (MenuItem menuCheck in _callingForm.Menu.MenuItems[2].MenuItems)//2 is the index into the "Exclude" menu. 
                 {
                     if (menuCheck.Text.ToUpper() == dependency)

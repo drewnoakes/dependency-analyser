@@ -33,7 +33,7 @@ namespace Drew.DependencyAnalyser
 
         private void EnableAndDisableMenuItems()
         {
-            bool analyserAvailable = (_analyser != null);
+            var analyserAvailable = (_analyser != null);
 
             _mnuFileSavePng.Enabled = analyserAvailable;
             _mnuFileSaveSvg.Enabled = analyserAvailable;
@@ -260,6 +260,15 @@ namespace Drew.DependencyAnalyser
             menuItem.Checked = !menuItem.Checked;
         }
 
+        private void menuFilter_Click(object sender, EventArgs e)
+        {
+            using (WaitCursor())
+            {
+                _filterForm.ShowDialog();
+                UpdateImage();
+            }
+        }
+
         #endregion
 
         #region Help & about
@@ -334,11 +343,5 @@ namespace Drew.DependencyAnalyser
         }
 
         #endregion
-
-        private void menuFilter_Click(object sender, EventArgs e)
-        {
-            using (WaitCursor())
-                _filterForm.ShowDialog();
-        }
     }
 }
