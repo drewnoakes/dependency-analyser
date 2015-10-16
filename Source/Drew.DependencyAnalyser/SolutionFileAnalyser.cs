@@ -10,7 +10,6 @@ namespace Drew.DependencyAnalyser
     /// </summary>
     public sealed class SolutionFileAnalyser : DependencyAnalyserBase
     {
-        private readonly string _solutionFileName;
         private readonly string _solutionPath;
 
         internal SolutionFileAnalyser()
@@ -21,8 +20,8 @@ namespace Drew.DependencyAnalyser
         public SolutionFileAnalyser(FileStream solutionFileStream)
         {
             // read solution file
-            _solutionFileName = solutionFileStream.Name;
-            _solutionPath = _solutionFileName.Substring(0, _solutionFileName.LastIndexOf(@"\"));
+            var solutionFileName = solutionFileStream.Name;
+            _solutionPath = solutionFileName.Substring(0, solutionFileName.LastIndexOf(@"\"));
             var content = ReadEntireStream(solutionFileStream);
 
             var projectInfoList = ExtractProjectInfoFromSolution(content);
