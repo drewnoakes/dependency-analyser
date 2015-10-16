@@ -157,7 +157,7 @@ namespace Drew.DependencyAnalyser
                 ? _plotter.CalculatePlot(aspectRatio, _analyser.DependencyGraph, _filterPreferences) 
                 : new PlotResult();
 
-            _txtMessage.Text = _analyser!=null ? _analyser.GetMessages() : null;
+            _txtMessage.Text = _analyser?.GetMessages();
             _txtDotScriptOutput.Text = _plotResult.DotCommand;
             _imgDotDiagram.Image = _plotResult.Image;
 
