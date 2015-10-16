@@ -20,7 +20,7 @@ namespace Drew.DependencyAnalyser.Tests
 //
 //            _projectInfoList[0].DependantProjectNames.Add("ProjectTwo");
 //
-//            Assertion.AssertEquals(@"digraph G {
+//            Assert.AreEqual(@"digraph G {
 //    A -> B;
 //    A [label=""ProjectOne""];
 //    B [label=""ProjectTwo""];
@@ -45,27 +45,27 @@ namespace Drew.DependencyAnalyser.Tests
 //    A [label=""ProjectOne""];
 //    B [label=""ProjectTwo""];
 //}";
-//            Assertion.AssertEquals(expected, GenerateDotCommand(extraCommands));
+//            Assert.AreEqual(expected, GenerateDotCommand(extraCommands));
 //        }
         
         [Test]
         public void AddAndGetMessages()
         {
             Messages = new StringBuilder();
-            Assertion.AssertEquals(String.Empty, GetMessages());
+            Assert.AreEqual(String.Empty, GetMessages());
             AddMessage("Test1");
-            Assertion.AssertEquals("Test1", GetMessages());
+            Assert.AreEqual("Test1", GetMessages());
             AddMessage("Test2");
-            Assertion.AssertEquals("Test1\r\nTest2", GetMessages());
+            Assert.AreEqual("Test1\r\nTest2", GetMessages());
         }
 
         [Test]
         public void AddAndGetMessages_Formatted()
         {
             Messages = new StringBuilder();
-            Assertion.AssertEquals(String.Empty, GetMessages());
+            Assert.AreEqual(String.Empty, GetMessages());
             AddMessage("{0} {1}", "hinkle", "pinkle");
-            Assertion.AssertEquals("hinkle pinkle", GetMessages());
+            Assert.AreEqual("hinkle pinkle", GetMessages());
         }
     }
 }

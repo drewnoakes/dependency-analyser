@@ -23,7 +23,7 @@ namespace Drew.DependencyAnalyser.Tests
     2 [label=""B""];
 }";
 
-            Assertion.AssertEquals(expected, command);
+            Assert.AreEqual(expected, command);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace Drew.DependencyAnalyser.Tests
     2 [label=""B""];
 }";
 
-            Assertion.AssertEquals(expected, command);
+            Assert.AreEqual(expected, command);
         }
     }
 }

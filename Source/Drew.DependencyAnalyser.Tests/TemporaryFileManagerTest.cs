@@ -21,17 +21,17 @@ namespace Drew.DependencyAnalyser.Tests
         public void CreateTemporaryFile_Format()
         {
             var filename = _temporaryFileManager.CreateTemporaryFile();
-            Assertion.Assert(Path.GetFileName(filename).StartsWith("DependencyAnaylser."));
-            Assertion.Assert(Path.GetFileName(filename).EndsWith(".tmp"));
-            Assertion.AssertEquals(Path.GetTempPath(), Path.GetDirectoryName(filename) + "\\");
+            Assert.IsTrue(Path.GetFileName(filename).StartsWith("DependencyAnaylser."));
+            Assert.IsTrue(Path.GetFileName(filename).EndsWith(".tmp"));
+            Assert.AreEqual(Path.GetTempPath(), Path.GetDirectoryName(filename) + "\\");
         }
 
         [Test]
         public void CreateTemporaryFile_CreatesZeroByteFile()
         {
             var filename = _temporaryFileManager.CreateTemporaryFile();
-            Assertion.Assert(File.Exists(filename));
-            Assertion.AssertEquals(0L, new FileInfo(filename).Length);
+            Assert.IsTrue(File.Exists(filename));
+            Assert.AreEqual(0L, new FileInfo(filename).Length);
         }
 
         [Test]
@@ -41,10 +41,10 @@ namespace Drew.DependencyAnalyser.Tests
             var filename1 = _temporaryFileManager.CreateTemporaryFile();
             var filename2 = _temporaryFileManager.CreateTemporaryFile();
             var filenames = TemporaryFileManager.GetExistingTemporaryFilenames();
-            Assertion.AssertEquals("number of temp files", 2, filenames.Length);
-            Assertion.Assert(filename1!=filename2);
-            Assertion.Assert(filename1==filenames[0] || filename1==filenames[1]);
-            Assertion.Assert(filename2==filenames[0] || filename2==filenames[1]);
+            Assert.AreEqual(2, filenames.Length, "number of temp files");
+            Assert.IsTrue(filename1!=filename2);
+            Assert.IsTrue(filename1==filenames[0] || filename1==filenames[1]);
+            Assert.IsTrue(filename2==filenames[0] || filename2==filenames[1]);
         }
 
         [Test]
@@ -53,9 +53,9 @@ namespace Drew.DependencyAnalyser.Tests
             TemporaryFileManager.DeleteAllTemporaryFiles();
             _temporaryFileManager.CreateTemporaryFile();
             _temporaryFileManager.CreateTemporaryFile();
-            Assertion.AssertEquals(2, TemporaryFileManager.GetExistingTemporaryFilenames().Length);
+            Assert.AreEqual(2, TemporaryFileManager.GetExistingTemporaryFilenames().Length);
             TemporaryFileManager.DeleteAllTemporaryFiles();
-            Assertion.AssertEquals(0, TemporaryFileManager.GetExistingTemporaryFilenames().Length);
+            Assert.AreEqual(0, TemporaryFileManager.GetExistingTemporaryFilenames().Length);
         }
     }
 }

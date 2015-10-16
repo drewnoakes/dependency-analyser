@@ -14,14 +14,14 @@ namespace Drew.DependencyAnalyser.Tests
     {
         public static void AssertEqualArrays(object[] array1, object[] array2)
         {
-            Assertion.AssertEquals("same number of elements", array1.Length, array2.Length);
-            Assertion.AssertEquals("same type", array1.GetType(), array2.GetType());
+            Assert.AreEqual(array1.Length, array2.Length, "same number of elements");
+            Assert.AreEqual(array1.GetType(), array2.GetType(), "same type");
             
             if (array1.Length == 0)
                 return;
 
             for (var arrayIndex = 0; arrayIndex < array1.Length; arrayIndex++)
-                Assertion.AssertEquals(array1[arrayIndex], array2[arrayIndex]);
+                Assert.AreEqual(array1[arrayIndex], array2[arrayIndex]);
         }
 
         #region Tests
