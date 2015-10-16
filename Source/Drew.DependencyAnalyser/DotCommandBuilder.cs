@@ -59,7 +59,7 @@ namespace Drew.DependencyAnalyser
                 }
             }
 
-            commandText.Append(nodeLabels.ToString());
+            commandText.Append(nodeLabels);
             commandText.Append("}");
 
             return commandText.ToString();
