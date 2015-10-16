@@ -48,7 +48,7 @@ namespace Drew.DependencyAnalyser
                                 ? (DependencyAnalyserBase)new SolutionFileAnalyser(fileStream)
                                 : new AssemblyAnalyser(Assembly.LoadFrom(fileStream.Name));
 
-                _filterPreferences.SetAssemblyNames(_analyser.DependencyGraph.GetNodes());
+                _filterPreferences.SetAssemblyNames(_analyser.DependencyGraph.Nodes);
                 EnableAndDisableMenuItems();
                 UpdateImage();
             }
@@ -76,7 +76,7 @@ namespace Drew.DependencyAnalyser
                 var assemblyToMerge = Assembly.LoadFrom(fileStream.Name);
                 assemblyAnalyser.ProcessAssembly(assemblyToMerge);
 
-                _filterPreferences.SetAssemblyNames(assemblyAnalyser.DependencyGraph.GetNodes());
+                _filterPreferences.SetAssemblyNames(assemblyAnalyser.DependencyGraph.Nodes);
                 EnableAndDisableMenuItems();
                 UpdateImage();
             }

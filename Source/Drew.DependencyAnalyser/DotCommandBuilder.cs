@@ -15,7 +15,7 @@ namespace Drew.DependencyAnalyser
 
         public string GenerateDotCommand(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences, string extraCommands)
         {
-            var nodes = graph.GetNodes();
+            var nodes = graph.Nodes;
 
             // TODO can this first loop be replaced with LINQ, maybe with a zip?
             var idsByNameMap = new Dictionary<string, int>();

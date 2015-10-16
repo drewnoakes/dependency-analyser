@@ -25,10 +25,7 @@ namespace Drew.DependencyAnalyser
             dependencySet.Add(dependency);
         }
 
-        public IEnumerable<T> GetNodes()
-        {
-            return _nodes;
-        }
+        public IEnumerable<T> Nodes => _nodes;
 
         public IEnumerable<T> GetDependenciesForNode(T dependant)
         {
