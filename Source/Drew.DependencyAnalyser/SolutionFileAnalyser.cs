@@ -65,7 +65,7 @@ namespace Drew.DependencyAnalyser
         /// <summary>
         /// Reads all bytes from a stream, and compiles a string representation by casting each byte to a char.
         /// </summary>
-        private string ReadEntireStream(Stream stream)
+        private static string ReadEntireStream(Stream stream)
         {
             StringWriter solutionFileContent = new StringWriter();
             byte[] bytes = new byte[1000];
@@ -84,7 +84,7 @@ namespace Drew.DependencyAnalyser
 
         #region Solution and project file parsing
 
-        internal ProjectInfo[] ExtractProjectInfoFromSolution(string content)
+        internal static ProjectInfo[] ExtractProjectInfoFromSolution(string content)
         {
             ArrayList projectPaths = new ArrayList();
             string[] lines = content.Split('\n');
@@ -124,7 +124,7 @@ namespace Drew.DependencyAnalyser
             return (ProjectInfo[])projectPaths.ToArray(typeof (ProjectInfo));
         }
 
-        internal string[] ExtractDependenciesFromProject(string content)
+        internal static string[] ExtractDependenciesFromProject(string content)
         {
             ArrayList dependencyList = new ArrayList();
 

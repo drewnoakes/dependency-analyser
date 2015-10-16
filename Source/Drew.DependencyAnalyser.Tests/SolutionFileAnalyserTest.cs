@@ -9,19 +9,19 @@ namespace Drew.DependencyAnalyser.Tests
         public void ExtractDependenciesFromProject()
         {
             var analyser = new SolutionFileAnalyser();
-            Assert.AreEqual(1, analyser.ExtractDependenciesFromProject(SingleDependencyProjectFileContent).Length);
-            Assert.AreEqual("SolutionDependencyAnalyser", analyser.ExtractDependenciesFromProject(SingleDependencyProjectFileContent)[0]);
-            Assert.AreEqual(2, analyser.ExtractDependenciesFromProject(DoubleDependencyProjectFileContent).Length);
+            Assert.AreEqual(1, SolutionFileAnalyser.ExtractDependenciesFromProject(SingleDependencyProjectFileContent).Length);
+            Assert.AreEqual("SolutionDependencyAnalyser", SolutionFileAnalyser.ExtractDependenciesFromProject(SingleDependencyProjectFileContent)[0]);
+            Assert.AreEqual(2, SolutionFileAnalyser.ExtractDependenciesFromProject(DoubleDependencyProjectFileContent).Length);
         }
         
         [Test]
         public void ExtractProjectInfoFromSolution()
         {
             var analyser = new SolutionFileAnalyser();
-            Assert.AreEqual(1, analyser.ExtractProjectInfoFromSolution(SingleProjectSolutionContent).Length);
-            Assert.AreEqual("SolutionDependencyPlotter.csproj", analyser.ExtractProjectInfoFromSolution(SingleProjectSolutionContent)[0].RelativePath);
-            Assert.AreEqual("SolutionDependencyPlotter", analyser.ExtractProjectInfoFromSolution(SingleProjectSolutionContent)[0].Name);
-            Assert.AreEqual(2, analyser.ExtractProjectInfoFromSolution(DoubleProjectSolutionContent).Length);
+            Assert.AreEqual(1, SolutionFileAnalyser.ExtractProjectInfoFromSolution(SingleProjectSolutionContent).Length);
+            Assert.AreEqual("SolutionDependencyPlotter.csproj", SolutionFileAnalyser.ExtractProjectInfoFromSolution(SingleProjectSolutionContent)[0].RelativePath);
+            Assert.AreEqual("SolutionDependencyPlotter", SolutionFileAnalyser.ExtractProjectInfoFromSolution(SingleProjectSolutionContent)[0].Name);
+            Assert.AreEqual(2, SolutionFileAnalyser.ExtractProjectInfoFromSolution(DoubleProjectSolutionContent).Length);
         }
         
         #region Test data - Solution files
