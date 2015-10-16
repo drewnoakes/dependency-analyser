@@ -56,7 +56,9 @@ namespace Drew.DependencyAnalyser
 
         private void menuFileMerge_Click(object sender, EventArgs e)
         {
-            if (_analyser as AssemblyAnalyser == null)
+            var assemblyAnalyser = _analyser as AssemblyAnalyser;
+
+            if (assemblyAnalyser == null)
                 throw new Exception("cannot merge assembly when analyser is null, or not an AssemblyAnalyser");
 
             if (_openFileDialog.ShowDialog() != DialogResult.OK)
@@ -72,9 +74,9 @@ namespace Drew.DependencyAnalyser
                     return;
                 }
                 var assemblyToMerge = Assembly.LoadFrom(fileStream.Name);
-                ((AssemblyAnalyser)_analyser).ProcessAssembly(assemblyToMerge);
+                assemblyAnalyser.ProcessAssembly(assemblyToMerge);
 
-                _filterPreferences.SetAssemblyNames(_analyser.DependencyGraph.GetNodes());
+                _filterPreferences.SetAssemblyNames(assemblyAnalyser.DependencyGraph.GetNodes());
                 EnableAndDisableMenuItems();
                 UpdateImage();
             }
