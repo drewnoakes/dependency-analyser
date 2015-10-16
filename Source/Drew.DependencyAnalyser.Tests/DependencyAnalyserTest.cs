@@ -52,7 +52,7 @@ namespace Drew.DependencyAnalyser.Tests
         public void AddAndGetMessages()
         {
             Messages = new StringBuilder();
-            Assert.AreEqual(String.Empty, GetMessages());
+            Assert.AreEqual(string.Empty, GetMessages());
             AddMessage("Test1");
             Assert.AreEqual("Test1", GetMessages());
             AddMessage("Test2");
@@ -63,7 +63,7 @@ namespace Drew.DependencyAnalyser.Tests
         public void AddAndGetMessages_Formatted()
         {
             Messages = new StringBuilder();
-            Assert.AreEqual(String.Empty, GetMessages());
+            Assert.AreEqual(string.Empty, GetMessages());
             AddMessage("{0} {1}", "hinkle", "pinkle");
             Assert.AreEqual("hinkle pinkle", GetMessages());
         }
