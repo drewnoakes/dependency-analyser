@@ -26,7 +26,7 @@ namespace Drew.DependencyAnalyser.Tests
         
         #region Test data - Solution files
 
-        const string SingleProjectSolutionContent = @"Microsoft Visual Studio Solution File, Format Version 7.00
+        private const string SingleProjectSolutionContent = @"Microsoft Visual Studio Solution File, Format Version 7.00
 Project(""{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"") = ""SolutionDependencyPlotter"", ""SolutionDependencyPlotter.csproj"", ""{C5BAF76A-B49F-40D3-A24B-26880A1352DD}""
 EndProject
 Global
@@ -49,7 +49,7 @@ Global
 EndGlobal
 ";
 
-        const string MultipleProjectSolutionContent = @"Microsoft Visual Studio Solution File, Format Version 7.00
+        private const string MultipleProjectSolutionContent = @"Microsoft Visual Studio Solution File, Format Version 7.00
 Project(""{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"") = ""TelexConnector"", ""TelexConnector\TelexConnector.csproj"", ""{C78C08D5-E786-424C-A1D4-A3C7053DFBB9}""
 EndProject
 Project(""{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"") = ""SampleProject.DataAccess"", ""SampleProject.DataAccess\SampleProject.DataAccess.csproj"", ""{871B9787-1242-423B-9571-586030E68ECB}""
@@ -109,7 +109,7 @@ EndProject
 Global
 ";
 
-        const string DoubleProjectSolutionContent = @"Microsoft Visual Studio Solution File, Format Version 7.00
+        private const string DoubleProjectSolutionContent = @"Microsoft Visual Studio Solution File, Format Version 7.00
 Project(""{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"") = ""SolutionDependencyPlotter"", ""SolutionDependencyPlotter.csproj"", ""{C5BAF76A-B49F-40D3-A24B-26880A1352DD}""
 EndProject
 Project(""{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"") = ""SolutionDependencyAnalyser"", ""..\SolutionDependencyAnalyser\SolutionDependencyAnalyser.csproj"", ""{95F5377E-3ED2-4B5D-BF01-0F0EED12CC35}""
@@ -142,7 +142,7 @@ EndGlobal
 
         #region Test data - Project files
 
-        const string SingleDependencyProjectFileContent = @"<VisualStudioProject>
+        private const string SingleDependencyProjectFileContent = @"<VisualStudioProject>
     <CSHARP
         ProjectType = ""Local""
         ProductVersion = ""7.0.9466""
@@ -264,7 +264,7 @@ EndGlobal
 </VisualStudioProject>
 ";
 
-        const string DoubleDependencyProjectFileContent = @"<VisualStudioProject>
+        private const string DoubleDependencyProjectFileContent = @"<VisualStudioProject>
     <CSHARP
         ProjectType = ""Local""
         ProductVersion = ""7.0.9466""

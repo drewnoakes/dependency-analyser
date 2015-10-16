@@ -8,7 +8,7 @@ namespace Drew.DependencyAnalyser
     /// </summary>
     public class DependencyGraphPrintDocument : PrintDocument
     {
-        Image _dotImage;
+        private Image _dotImage;
 
         public DependencyGraphPrintDocument(Image dotImage)
         {

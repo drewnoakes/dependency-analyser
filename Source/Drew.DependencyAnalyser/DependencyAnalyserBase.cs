@@ -38,7 +38,7 @@ namespace Drew.DependencyAnalyser
             Messages.AppendFormat(message, format);
         }
 
-        void StartNewMessage()
+        private void StartNewMessage()
         {
             if (Messages.ToString().Length > 0)
                 Messages.Append("\r\n");
