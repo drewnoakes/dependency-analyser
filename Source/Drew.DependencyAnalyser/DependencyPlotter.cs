@@ -3,11 +3,9 @@ using WINGRAPHVIZLib;
 
 namespace Drew.DependencyAnalyser
 {
-    public class DependencyPlotter
+    public static class DependencyPlotter
     {
-        private readonly TemporaryFileManager _tempFileManager = new TemporaryFileManager();
-
-        public PlotResult CalculatePlot(double aspectRatio, DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences)
+        public static PlotResult CalculatePlot(double aspectRatio, DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences)
         {
             const double widthInches = 100;
             var heightInches = (double)(int)(widthInches / aspectRatio);
@@ -24,7 +22,7 @@ namespace Drew.DependencyAnalyser
             var dotCommand = DotCommandBuilder.Generate(graph, filterPreferences, extraCommands);
 
             // a temp file to store image
-            var tempFile = _tempFileManager.CreateTemporaryFile();
+            var tempFile = TemporaryFileManager.CreateTemporaryFile();
 
             // generate dot image
             var dot = new DOTClass();

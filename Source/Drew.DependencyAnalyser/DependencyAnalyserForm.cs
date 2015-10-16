@@ -12,7 +12,6 @@ namespace Drew.DependencyAnalyser
     public partial class DependencyAnalyserForm : Form
     {
         private readonly AssemblyFilterPreferences _filterPreferences = new AssemblyFilterPreferences();
-        private readonly DependencyPlotter _plotter = new DependencyPlotter();
         private DependencyAnalyserBase _analyser;
         private PlotResult _plotResult;
 
@@ -154,7 +153,7 @@ namespace Drew.DependencyAnalyser
             var aspectRatio = _imgDotDiagram.Width / (double)_imgDotDiagram.Height;
 
             _plotResult = _analyser != null
-                ? _plotter.CalculatePlot(aspectRatio, _analyser.DependencyGraph, _filterPreferences) 
+                ? DependencyPlotter.CalculatePlot(aspectRatio, _analyser.DependencyGraph, _filterPreferences) 
                 : new PlotResult();
 
             _txtMessage.Text = _analyser?.GetMessages();

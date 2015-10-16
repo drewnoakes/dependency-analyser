@@ -3,11 +3,11 @@ using System.IO;
 
 namespace Drew.DependencyAnalyser
 {
-    public class TemporaryFileManager
+    public static class TemporaryFileManager
     {
-        private readonly Random _random = new Random();
+        private static readonly Random _random = new Random();
 
-        public string CreateTemporaryFile()
+        public static string CreateTemporaryFile()
         {
             var tempFilename = GenerateTemporaryFilename();
             while (File.Exists(tempFilename))
@@ -16,7 +16,7 @@ namespace Drew.DependencyAnalyser
             return tempFilename;
         }
 
-        private string GenerateTemporaryFilename()
+        private static string GenerateTemporaryFilename()
         {
             // TODO loop until file not found
             return Path.Combine(Path.GetTempPath(), String.Format("DependencyAnaylser.{0:X}.tmp", _random.Next(int.MaxValue >> 4)));
