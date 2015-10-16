@@ -21,7 +21,7 @@ namespace Drew.DependencyAnalyser
 
             var extraCommands = string.Format("size=\"{0},{1}\"\r\n    center=\"\"\r\n    ratio=All\r\n    node[width=.25,hight=.375,fontsize=12,color=lightblue2,style=filled]",
                                               widthInches, heightInches);
-            var dotCommand = new DotCommandBuilder().GenerateDotCommand(graph, filterPreferences, extraCommands);
+            var dotCommand = DotCommandBuilder.Generate(graph, filterPreferences, extraCommands);
 
             // a temp file to store image
             var tempFile = _tempFileManager.CreateTemporaryFile();

@@ -24,7 +24,7 @@ namespace Drew.DependencyAnalyser.Tests
 //    A -> B;
 //    A [label=""ProjectOne""];
 //    B [label=""ProjectTwo""];
-//}", GenerateDotCommand());
+//}", Generate());
 //        }
 //
 //        [Test]
@@ -45,7 +45,7 @@ namespace Drew.DependencyAnalyser.Tests
 //    A [label=""ProjectOne""];
 //    B [label=""ProjectTwo""];
 //}";
-//            Assert.AreEqual(expected, GenerateDotCommand(extraCommands));
+//            Assert.AreEqual(expected, Generate(extraCommands));
 //        }
         
         [Test]

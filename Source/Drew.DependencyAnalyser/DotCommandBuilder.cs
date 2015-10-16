@@ -6,14 +6,14 @@ namespace Drew.DependencyAnalyser
     /// <summary>
     /// Builds a Dot command for a given dependency graph.
     /// </summary>
-    public sealed class DotCommandBuilder
+    public static class DotCommandBuilder
     {
-        public string GenerateDotCommand(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences)
+        public static string Generate(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences)
         {
-            return GenerateDotCommand(graph, filterPreferences, string.Empty);
+            return Generate(graph, filterPreferences, string.Empty);
         }
 
-        public string GenerateDotCommand(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences, string extraCommands)
+        public static string Generate(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences, string extraCommands)
         {
             var nodes = graph.Nodes;
 

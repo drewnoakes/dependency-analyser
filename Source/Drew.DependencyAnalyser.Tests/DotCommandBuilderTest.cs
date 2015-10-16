@@ -15,7 +15,7 @@ namespace Drew.DependencyAnalyser.Tests
 
             var filterPreferences = new AssemblyFilterPreferences();
             filterPreferences.SetAssemblyNames(graph.Nodes);
-            var command = new DotCommandBuilder().GenerateDotCommand(graph, filterPreferences);
+            var command = DotCommandBuilder.Generate(graph, filterPreferences);
             
             const string expected = @"digraph G {
     1 -> 2;
@@ -38,7 +38,7 @@ namespace Drew.DependencyAnalyser.Tests
             filterPreferences.SetAssemblyNames(graph.Nodes);
             filterPreferences.Exclude("C");
 
-            var command = new DotCommandBuilder().GenerateDotCommand(graph, filterPreferences);
+            var command = DotCommandBuilder.Generate(graph, filterPreferences);
             
             const string expected = @"digraph G {
     1 -> 2;
