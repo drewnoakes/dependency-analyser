@@ -22,7 +22,7 @@ namespace Drew.DependencyAnalyser
             // read solution file
             var solutionFileName = solutionFileStream.Name;
             _solutionPath = solutionFileName.Substring(0, solutionFileName.LastIndexOf(@"\"));
-            var content = ReadEntireStream(solutionFileStream);
+            var content = new StreamReader(solutionFileStream).ReadToEnd();
 
             var projectInfoList = ExtractProjectInfoFromSolution(content);
 
@@ -53,33 +53,13 @@ namespace Drew.DependencyAnalyser
 
             AddMessage("{0} depends upon:", projectInfo.Name);
 
-            string projectFileContent = ReadEntireStream(File.OpenRead(projectFilePathAbsolute));
+            string projectFileContent = File.ReadAllText(projectFilePathAbsolute);
             string[] dependencies = ExtractDependenciesFromProject(projectFileContent);
             foreach (string dependency in dependencies)
             {
                 AddMessage("- {0}", dependency);
                 DependencyGraph.AddDependency(projectInfo.Name, dependency);
             }
-        }
-
-        /// <summary>
-        /// Reads all bytes from a stream, and compiles a string representation by casting each byte to a char.
-        /// </summary>
-        private static string ReadEntireStream(Stream stream)
-        {
-            StringWriter solutionFileContent = new StringWriter();
-            byte[] bytes = new byte[1000];
-            int bytesRead = stream.Read(bytes, 0, bytes.Length);
-            while (bytesRead > 0)
-            {
-                for (int i = 0; i < bytesRead; i++)
-                {
-                    solutionFileContent.Write((char)bytes[i]);
-                }
-                bytesRead = stream.Read(bytes, 0, bytes.Length);
-            }
-            stream.Close();
-            return solutionFileContent.ToString();
         }
 
         #region Solution and project file parsing
