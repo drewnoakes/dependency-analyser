@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -66,7 +66,7 @@ namespace Drew.DependencyAnalyser
 
         internal static ProjectInfo[] ExtractProjectInfoFromSolution(string content)
         {
-            ArrayList projectPaths = new ArrayList();
+            var projectPaths = new List<ProjectInfo>();
             string[] lines = content.Split('\n');
             if (lines.Length == 0 || !lines[0].Trim().StartsWith("Microsoft Visual Studio Solution File"))
             {
@@ -101,12 +101,12 @@ namespace Drew.DependencyAnalyser
                 }
             }
 
-            return (ProjectInfo[])projectPaths.ToArray(typeof (ProjectInfo));
+            return projectPaths.ToArray();
         }
 
         internal static string[] ExtractDependenciesFromProject(string content)
         {
-            ArrayList dependencyList = new ArrayList();
+            var dependencyList = new List<string>();
 
             XmlDocument projectDocument = new XmlDocument();
             projectDocument.Load(new StringReader(content));
@@ -126,7 +126,7 @@ namespace Drew.DependencyAnalyser
                 }
             }
 
-            return (string[])dependencyList.ToArray(typeof (string));
+            return dependencyList.ToArray();
         }
 
         #endregion
