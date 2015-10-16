@@ -19,7 +19,7 @@ namespace Drew.DependencyAnalyser
         private static string GenerateTemporaryFilename()
         {
             // TODO loop until file not found
-            return Path.Combine(Path.GetTempPath(), string.Format("DependencyAnaylser.{0:X}.tmp", _random.Next(int.MaxValue >> 4)));
+            return Path.Combine(Path.GetTempPath(), $"DependencyAnaylser.{_random.Next(int.MaxValue >> 4):X}.tmp");
         }
 
         public static void DeleteAllTemporaryFiles()

@@ -108,9 +108,7 @@ namespace Drew.DependencyAnalyser
         private void mnuAbout_Click(object sender, EventArgs e)
         {
             // TODO make this a dialog with a link button
-            MessageBox.Show(string.Format(".NET Assembly Dependency Analyser v{0}\n\nCopyright Drew Noakes 2003-{1}\n\nThanks to John Maher\n\nLatest version at http://drewnoakes.com/code/dependency-analyser/\nCharts provided using Dot & Wingraphviz", 
-                                          Assembly.GetExecutingAssembly().GetName().Version,
-                                          DateTime.Now.Year));
+            MessageBox.Show($".NET Assembly Dependency Analyser v{Assembly.GetExecutingAssembly().GetName().Version}\n\nCopyright Drew Noakes 2003-{DateTime.Now.Year}\n\nThanks to John Maher\n\nLatest version at http://drewnoakes.com/code/dependency-analyser/\nCharts provided using Dot & Wingraphviz");
         }
 
         private void menuFilter_Click(object sender, EventArgs e)

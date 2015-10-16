@@ -47,7 +47,7 @@ namespace Drew.DependencyAnalyser
                 if (parent.ContainsKey(leafName))
                 {
                     leafNode = parent[leafName].Nodes.Insert(0, leafName, "<exactly>");
-                    leafNode.ToolTipText = string.Format("Select's {0} without child namespaces", name);
+                    leafNode.ToolTipText = $"Select's {name} without child namespaces";
                 }
                 else
                 {
