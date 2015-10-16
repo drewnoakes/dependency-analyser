@@ -15,12 +15,10 @@ namespace Drew.DependencyAnalyser
 
         public static string Generate(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences, string extraCommands)
         {
-            var nodes = graph.Nodes;
-
             // TODO can this first loop be replaced with LINQ, maybe with a zip?
             var idsByNameMap = new Dictionary<string, int>();
             var id = 1;
-            foreach (var nodeName in nodes)
+            foreach (var nodeName in graph.Nodes)
             {
                 idsByNameMap.Add(nodeName, id);
                 id++;
@@ -39,7 +37,7 @@ namespace Drew.DependencyAnalyser
 
             var nodeLabels = new StringBuilder();
 
-            foreach (var dependant in nodes)
+            foreach (var dependant in graph.Nodes)
             {
                 // make sure the dependant should be plotted
                 if (!filterPreferences.IncludeInPlot(dependant))
