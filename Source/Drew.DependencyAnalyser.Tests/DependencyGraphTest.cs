@@ -12,8 +12,8 @@ namespace Drew.DependencyAnalyser.Tests
             var graph = new DependencyGraph<string>();
             graph.AddDependency("A", "B");
 
-            TestHelper.AssertEqualArrays(new[] { "A", "B" }, graph.Nodes.ToArray());
-            TestHelper.AssertEqualArrays(new[] { "B" }, graph.GetDependenciesForNode("A").ToArray());
+            CollectionAssert.AreEqual(new[] { "A", "B" }, graph.Nodes.ToArray());
+            CollectionAssert.AreEqual(new[] { "B" }, graph.GetDependenciesForNode("A").ToArray());
         }
     }
 }
