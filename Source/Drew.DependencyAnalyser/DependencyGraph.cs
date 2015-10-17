@@ -29,9 +29,9 @@ namespace Drew.DependencyAnalyser
 
         public IEnumerable<T> GetDependenciesForNode(T dependant)
         {
-            HashSet<T> dependencyList;
-            return _dependenciesByNode.TryGetValue(dependant, out dependencyList)
-                       ? dependencyList
+            HashSet<T> dependencies;
+            return _dependenciesByNode.TryGetValue(dependant, out dependencies)
+                       ? dependencies
                        : Enumerable.Empty<T>();
         }
     }
