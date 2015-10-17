@@ -62,6 +62,6 @@ More information on Dot can be found at http://www.graphviz.org/
 
 ## Installation
 
-Old builds are available on [Google Code](http://code.google.com/p/dependency-analyser/downloads/list).
-
-Note that you must run the WinGraphviz installer included in the archive if you do not already have it installed.
+1. Download zipped binaries on the [releases page](https://github.com/drewnoakes/dependency-analyser/releases) and extract to a folder on your PC.
+2. Run the WinGraphviz installer included in the archive (if you do not already have it installed).
+3. Run `DependencyAnalyser.exe` to start the program.
