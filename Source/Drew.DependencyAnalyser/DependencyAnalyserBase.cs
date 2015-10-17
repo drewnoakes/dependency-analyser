@@ -9,12 +9,7 @@ namespace Drew.DependencyAnalyser
     {
         protected StringBuilder Messages = new StringBuilder();
 
-        protected DependencyAnalyserBase()
-        {
-            DependencyGraph = new DependencyGraph<string>();
-        }
-
-        public DependencyGraph<string> DependencyGraph { get; private set; }
+        public DependencyGraph<string> DependencyGraph { get; } = new DependencyGraph<string>();
 
         #region Message handling 
 
