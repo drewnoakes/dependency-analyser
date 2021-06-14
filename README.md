@@ -2,7 +2,7 @@ After manually drawing an assembly dependency graph for a twenty-something-proje
 
 ## How it works
 
-Run the application, and open a .NET assembly from the _File|Open..._ menu (or just press CTRL+O).
+Run the application, and open a .NET assembly or solution from the _File|Open..._ menu (or just press <kbd>Ctrl</kbd>+<kbd>O</kbd>).
 
 The analyser will immediately generate a diagram such as the one shown:
 
@@ -25,7 +25,7 @@ It requires three non-system assemblies: `DependencyAnalyser`, `DependencyAnalys
 even though `nunit.framework` is not referenced directly.  We can also tell, unsurprisingly, that `DependencyAnalyser`
 uses WinForms assemblies.
 
-Note the circular dependency between `System` and `System.Xml`!!!
+Note the [circular dependency between `System` and `System.Xml`](https://stackoverflow.com/q/1316518/24874)!!!
 
 Excluding all `System` assemblies shows all dependent assemblies that must be deployed with the
 selected assembly for it to operate properly.
