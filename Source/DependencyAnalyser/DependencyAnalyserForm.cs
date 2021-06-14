@@ -42,15 +42,15 @@ namespace DependencyAnalyser
             // Start a new graph
             _graph = new DependencyGraph<string>();
 
-            await MergeFileAsync(_openFileDialog.FileName);
+            await MergeFileAsync();
         }
 
         private async void menuFileMerge_Click(object sender, EventArgs e)
         {
-            await MergeFileAsync(_openFileDialog.FileName);
+            await MergeFileAsync();
         }
 
-        private async Task MergeFileAsync(string fileName)
+        private async Task MergeFileAsync()
         {
             try
             {
@@ -58,6 +58,8 @@ namespace DependencyAnalyser
                 {
                     return;
                 }
+
+                string fileName = _openFileDialog.FileName;
 
                 using (WaitCursor())
                 {
