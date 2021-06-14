@@ -3,15 +3,13 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Drew.DependencyAnalyser.Controls;
 
-// ReSharper disable InconsistentNaming
-
 namespace Drew.DependencyAnalyser
 {
     public sealed partial class FilterForm : Form
     {
-        private readonly AssemblyFilterPreferences _filterPreferences;
+        private readonly FilterPreferences _filterPreferences;
 
-        public FilterForm(AssemblyFilterPreferences filterPreferences)
+        public FilterForm(FilterPreferences filterPreferences)
         {
             _filterPreferences = filterPreferences;
 
@@ -74,7 +72,8 @@ namespace Drew.DependencyAnalyser
             foreach (var name in _filterPreferences.GetAllNames())
             {
                 var node = _tree.FindNodeByTag(name);
-                Debug.Assert(node != null);
+                if (node == null)
+                    throw new("Tree node should not be null.");
                 var include = _tree.GetChecked(node) != TriStateTreeView.CheckState.Unchecked;
                 _filterPreferences.SetInclusion(name, include);
             }

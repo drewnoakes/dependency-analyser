@@ -12,7 +12,7 @@ namespace Drew.DependencyAnalyser
         private readonly HashSet<T> _nodes = new HashSet<T>();
         private readonly Dictionary<T, HashSet<T>> _dependenciesByNode = new Dictionary<T, HashSet<T>>();
 
-        public void AddDependency(T dependant, T dependency)
+        public bool AddDependency(T dependant, T dependency)
         {
             // take note of these nodes
             _nodes.Add(dependant);
@@ -23,7 +23,7 @@ namespace Drew.DependencyAnalyser
             if (!_dependenciesByNode.TryGetValue(dependant, out dependencySet))
                 dependencySet = _dependenciesByNode[dependant] = new HashSet<T>();
 
-            dependencySet.Add(dependency);
+            return dependencySet.Add(dependency);
         }
 
         public IEnumerable<T> Nodes => _nodes;

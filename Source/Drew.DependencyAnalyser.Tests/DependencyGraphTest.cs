@@ -1,21 +1,20 @@
-using NUnit.Framework;
+using Xunit;
 
 namespace Drew.DependencyAnalyser.Tests
 {
-    [TestFixture]
     public sealed class DependencyGraphTest
     {
-        [Test]
+        [Fact]
         public void AddDependencyTest()
         {
             var graph = new DependencyGraph<string>();
             graph.AddDependency("A", "B");
 
-            CollectionAssert.AreEqual(new[] { "A", "B" }, graph.Nodes);
-            CollectionAssert.AreEqual(new[] { "B" }, graph.GetDependenciesForNode("A"));
+            Assert.Equal(new[] { "A", "B" }, graph.Nodes);
+            Assert.Equal(new[] { "B" }, graph.GetDependenciesForNode("A"));
         }
 
-        [Test]
+        [Fact]
         public void TransitiveReduceThreeNodes()
         {
             var graph = new DependencyGraph<char>();
@@ -25,12 +24,12 @@ namespace Drew.DependencyAnalyser.Tests
 
             graph.TransitiveReduce();
 
-            CollectionAssert.AreEqual(new[] { 'a', 'b', 'c' }, graph.Nodes);
-            CollectionAssert.AreEqual(new[] { 'b' }, graph.GetDependenciesForNode('a'));
-            CollectionAssert.AreEqual(new[] { 'c' }, graph.GetDependenciesForNode('b'));
+            Assert.Equal(new[] { 'a', 'b', 'c' }, graph.Nodes);
+            Assert.Equal(new[] { 'b' }, graph.GetDependenciesForNode('a'));
+            Assert.Equal(new[] { 'c' }, graph.GetDependenciesForNode('b'));
         }
 
-        [Test]
+        [Fact]
         public void TransitiveReduceCascade()
         {
             var graph = new DependencyGraph<char>();
@@ -42,10 +41,10 @@ namespace Drew.DependencyAnalyser.Tests
             graph.TransitiveReduce();
 
             for (var c = 'a'; c < 'f' - 1; c++)
-                CollectionAssert.AreEqual(new[] { (char)(c + 1) }, graph.GetDependenciesForNode(c), $"Dep of {c} should be {(char)(c+1)}");
+                Assert.Equal(new[] { (char)(c + 1) }, graph.GetDependenciesForNode(c));
         }
 
-        [Test]
+        [Fact]
         public void TransitiveReduceCycles()
         {
             var graph = new DependencyGraph<char>();
@@ -60,8 +59,8 @@ namespace Drew.DependencyAnalyser.Tests
 
             // NOTE result here depends upon order of enumeration from HashSet<char>, making this test potentially fragile
 
-            CollectionAssert.AreEqual(new[] { 'b' }, graph.GetDependenciesForNode('a'));
-            CollectionAssert.AreEqual(new[] { 'a', 'c' }, graph.GetDependenciesForNode('b'));
+            Assert.Equal(new[] { 'b' }, graph.GetDependenciesForNode('a'));
+            Assert.Equal(new[] { 'a', 'c' }, graph.GetDependenciesForNode('b'));
         }
     }
 }

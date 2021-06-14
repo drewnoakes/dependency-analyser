@@ -34,8 +34,8 @@ namespace Drew.DependencyAnalyser.Controls
     /// </remarks>
     public class TriStateTreeView : TreeView
     {
-        private ImageList _images;
-        private IContainer components;
+        private ImageList? _images;
+        private IContainer? components;
 
         /// <summary>
         /// The check state
@@ -153,7 +153,7 @@ namespace Drew.DependencyAnalyser.Controls
         }
 */
 
-            ImageList = _images;
+            ImageList = _images!;
             ImageIndex = (int)CheckState.Unchecked;
             SelectedImageIndex = (int)CheckState.Unchecked;
         }

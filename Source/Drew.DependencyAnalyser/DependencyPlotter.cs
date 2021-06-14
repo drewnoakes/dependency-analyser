@@ -5,7 +5,7 @@ namespace Drew.DependencyAnalyser
 {
     public static class DependencyPlotter
     {
-        public static PlotResult CalculatePlot(double aspectRatio, DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences)
+        public static PlotResult CalculatePlot(double aspectRatio, DependencyGraph<string> graph, FilterPreferences filterPreferences)
         {
             const double widthInches = 100;
             var heightInches = (double)(int)(widthInches / aspectRatio);
@@ -31,14 +31,21 @@ namespace Drew.DependencyAnalyser
             // generate SVG
             var svgXml = dot.ToSvg(dotCommand);
 
-            return new PlotResult { DotCommand = dotCommand, Image = dotImage, SvgXml = svgXml };
+            return new PlotResult(dotCommand, dotImage, svgXml);
         }
     }
 
     public class PlotResult
     {
-        public Image Image { get; set; }
-        public string DotCommand { get; set; }
-        public string SvgXml { get; set; }
+        public string DotCommand { get; }
+        public Image Image { get; }
+        public string SvgXml { get; }
+
+        public PlotResult(string dotCommand, Image image, string svgXml)
+        {
+            DotCommand = dotCommand;
+            Image = image;
+            SvgXml = svgXml;
+        }
     }
 }

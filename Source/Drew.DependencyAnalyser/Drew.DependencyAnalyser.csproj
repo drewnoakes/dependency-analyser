@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <OutputType>WinExe</OutputType>
+    <Nullable>enable</Nullable>
+    <LangVersion>9</LangVersion>
     <Prefer32Bit>true</Prefer32Bit>
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>DependencyAnalyser</AssemblyName>
@@ -26,6 +28,13 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
+  
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.4.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces" Version="3.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="3.9.0" />
+  
   </ItemGroup>
 
 </Project>

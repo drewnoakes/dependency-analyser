@@ -8,12 +8,12 @@ namespace Drew.DependencyAnalyser
     /// </summary>
     public static class DotCommandBuilder
     {
-        public static string Generate(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences)
+        public static string Generate(DependencyGraph<string> graph, FilterPreferences filterPreferences)
         {
             return Generate(graph, filterPreferences, string.Empty);
         }
 
-        public static string Generate(DependencyGraph<string> graph, AssemblyFilterPreferences filterPreferences, string extraCommands)
+        public static string Generate(DependencyGraph<string> graph, FilterPreferences filterPreferences, string extraCommands)
         {
             // TODO can this first loop be replaced with LINQ, maybe with a zip?
             var idsByNameMap = new Dictionary<string, int>();

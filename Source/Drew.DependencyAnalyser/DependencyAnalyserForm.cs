@@ -2,18 +2,20 @@ using System;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-
-// ReSharper disable InconsistentNaming
 
 namespace Drew.DependencyAnalyser
 {
     public partial class DependencyAnalyserForm : Form
     {
-        private readonly AssemblyFilterPreferences _filterPreferences = new AssemblyFilterPreferences();
-        private DependencyAnalyserBase _analyser;
-        private PlotResult _plotResult;
+        private readonly FilterPreferences _filterPreferences = new();
+        private readonly StringBuilderLogger _logger = new();
+
+        private DependencyGraph<string> _graph = new();
+        private PlotResult? _plotResult;
 
         public DependencyAnalyserForm()
         {
@@ -23,61 +25,60 @@ namespace Drew.DependencyAnalyser
 
         private void EnableAndDisableMenuItems()
         {
-            var analyserAvailable = (_analyser != null);
+            var hasGraph = _graph.Nodes.Any();
 
-            _mnuFileSavePng.Enabled = analyserAvailable;
-            _mnuFileSaveSvg.Enabled = analyserAvailable;
-            _mnuFilter.Enabled = analyserAvailable;
-            _mnuFilePrint.Enabled = analyserAvailable;
-            _mnuFilePrintPreview.Enabled = analyserAvailable;
-            _mnuFileMerge.Enabled = analyserAvailable && _analyser is AssemblyAnalyser;
+            _mnuFileSavePng.Enabled = hasGraph;
+            _mnuFileSaveSvg.Enabled = hasGraph;
+            _mnuFilter.Enabled = hasGraph;
+            _mnuFilePrint.Enabled = hasGraph;
+            _mnuFilePrintPreview.Enabled = hasGraph;
+            _mnuFileMerge.Enabled = hasGraph;
         }
 
         #region Event handlers
 
-        private void menuFileOpen_Click(object sender, EventArgs e)
+        private async void menuFileOpen_Click(object sender, EventArgs e)
         {
-            if (_openFileDialog.ShowDialog() != DialogResult.OK)
-                return;
+            // Start a new graph
+            _graph = new DependencyGraph<string>();
 
-            using (WaitCursor())
-            using (var fileStream = (FileStream)_openFileDialog.OpenFile())
-            {
-                _analyser = fileStream.Name.EndsWith(".sln")
-                                ? (DependencyAnalyserBase)new SolutionFileAnalyser(fileStream)
-                                : new AssemblyAnalyser(Assembly.LoadFrom(fileStream.Name));
-
-                _filterPreferences.SetAssemblyNames(_analyser.DependencyGraph.Nodes);
-                EnableAndDisableMenuItems();
-                UpdateImage();
-            }
+            await MergeFileAsync(_openFileDialog.FileName);
         }
 
-        private void menuFileMerge_Click(object sender, EventArgs e)
+        private async void menuFileMerge_Click(object sender, EventArgs e)
         {
-            var assemblyAnalyser = _analyser as AssemblyAnalyser;
+            await MergeFileAsync(_openFileDialog.FileName);
+        }
 
-            if (assemblyAnalyser == null)
-                throw new Exception("cannot merge assembly when analyser is null, or not an AssemblyAnalyser");
-
-            if (_openFileDialog.ShowDialog() != DialogResult.OK)
-                return;
-
-            using (WaitCursor())
-            using (var fileStream = (FileStream)_openFileDialog.OpenFile())
+        private async Task MergeFileAsync(string fileName)
+        {
+            try
             {
-                var filename = fileStream.Name.ToLower();
-                if (!filename.EndsWith(".exe") && !filename.EndsWith(".dll"))
+                if (_openFileDialog.ShowDialog() != DialogResult.OK)
                 {
-                    MessageBox.Show("Only .dll or .exe assemblies may be merged");
                     return;
                 }
-                var assemblyToMerge = Assembly.LoadFrom(fileStream.Name);
-                assemblyAnalyser.ProcessAssembly(assemblyToMerge);
 
-                _filterPreferences.SetAssemblyNames(assemblyAnalyser.DependencyGraph.Nodes);
-                EnableAndDisableMenuItems();
-                UpdateImage();
+                using (WaitCursor())
+                {
+                    if (fileName.EndsWith(".sln"))
+                    {
+                        await SolutionFileAnalyser.AnalyseAsync(fileName, _graph, _logger);
+                    }
+                    else
+                    {
+                        var assembly = Assembly.LoadFrom(fileName);
+                        AssemblyAnalyser.Analyze(assembly, _graph, _logger);
+                    }
+
+                    _filterPreferences.SetAssemblyNames(_graph.Nodes);
+                    EnableAndDisableMenuItems();
+                    UpdateImage();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
             }
         }
 
@@ -108,7 +109,7 @@ namespace Drew.DependencyAnalyser
         private void mnuAbout_Click(object sender, EventArgs e)
         {
             // TODO make this a dialog with a link button
-            MessageBox.Show($".NET Assembly Dependency Analyser v{Assembly.GetExecutingAssembly().GetName().Version}\n\nCopyright Drew Noakes 2003-{DateTime.Now.Year}\n\nThanks to John Maher\n\nLatest version at http://drewnoakes.com/code/dependency-analyser/\nCharts provided using Dot & Wingraphviz");
+            MessageBox.Show($".NET Assembly Dependency Analyser v{Assembly.GetExecutingAssembly().GetName().Version}\n\nCopyright Drew Noakes 2003-{DateTime.Now.Year}.\n\nThanks to John Maher.\n\nLatest version at http://drewnoakes.com/code/dependency-analyser/\nCharts provided using Dot & Wingraphviz.");
         }
 
         private void menuFilter_Click(object sender, EventArgs e)
@@ -141,6 +142,9 @@ namespace Drew.DependencyAnalyser
 
         private void SaveSvgImage(Stream fileStream)
         {
+            if (_plotResult?.SvgXml == null)
+                throw new Exception("Unable to save SVG image.");
+            
             using (var writer = new StreamWriter(fileStream))
                 writer.Write(_plotResult.SvgXml);
             MessageBox.Show("SVG file saved.");
@@ -150,11 +154,9 @@ namespace Drew.DependencyAnalyser
         {
             var aspectRatio = _imgDotDiagram.Width / (double)_imgDotDiagram.Height;
 
-            _plotResult = _analyser != null
-                ? DependencyPlotter.CalculatePlot(aspectRatio, _analyser.DependencyGraph, _filterPreferences) 
-                : new PlotResult();
+            _plotResult = DependencyPlotter.CalculatePlot(aspectRatio, _graph, _filterPreferences);
 
-            _txtMessage.Text = _analyser?.GetMessages();
+            _txtMessage.Text = _logger.ToString();
             _txtDotScriptOutput.Text = _plotResult.DotCommand;
             _imgDotDiagram.Image = _plotResult.Image;
 
@@ -217,8 +219,8 @@ namespace Drew.DependencyAnalyser
 
         private PrintDocument CreatePrintDocument()
         {
-            if (_plotResult.Image == null)
-                throw new ApplicationException("unable to create print document when dot image is null");
+            if (_plotResult?.Image == null)
+                throw new Exception("unable to create print document when dot image is null");
 
             return new DependencyGraphPrintDocument(_plotResult.Image);
         }

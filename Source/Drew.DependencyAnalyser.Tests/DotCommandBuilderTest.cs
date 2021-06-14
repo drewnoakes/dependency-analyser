@@ -1,19 +1,16 @@
-using NUnit.Framework;
-
-// ReSharper disable InconsistentNaming
+using Xunit;
 
 namespace Drew.DependencyAnalyser.Tests
 {
-    [TestFixture]
     public sealed class DotCommandBuilderTest
     {
-        [Test]
+        [Fact]
         public void GenerateDotCommand()
         {
             var graph = new DependencyGraph<string>();
             graph.AddDependency("A", "B");
 
-            var filterPreferences = new AssemblyFilterPreferences();
+            var filterPreferences = new FilterPreferences();
             filterPreferences.SetAssemblyNames(graph.Nodes);
             var command = DotCommandBuilder.Generate(graph, filterPreferences);
             
@@ -23,10 +20,10 @@ namespace Drew.DependencyAnalyser.Tests
     2 [label=""B""];
 }";
 
-            Assert.AreEqual(expected, command);
+            Assert.Equal(expected, command);
         }
 
-        [Test]
+        [Fact]
         public void GenerateDotCommand_ExclusionList()
         {
             var graph = new DependencyGraph<string>();
@@ -34,7 +31,7 @@ namespace Drew.DependencyAnalyser.Tests
             graph.AddDependency("B", "C");
             graph.AddDependency("C", "A");
 
-            var filterPreferences = new AssemblyFilterPreferences();
+            var filterPreferences = new FilterPreferences();
             filterPreferences.SetAssemblyNames(graph.Nodes);
             filterPreferences.Exclude("C");
 
@@ -46,7 +43,7 @@ namespace Drew.DependencyAnalyser.Tests
     2 [label=""B""];
 }";
 
-            Assert.AreEqual(expected, command);
+            Assert.Equal(expected, command);
         }
     }
 }
