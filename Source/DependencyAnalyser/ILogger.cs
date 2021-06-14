@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Drew.DependencyAnalyser
+namespace DependencyAnalyser
 {
     public interface ILogger
     {

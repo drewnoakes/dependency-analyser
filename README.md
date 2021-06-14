@@ -20,9 +20,9 @@ Select which assemblies you want to include in the plot and press OK.
 
 ![A graph showing dependencies when most of the behind-the-scenes assemblies have been removed](https://raw.githubusercontent.com/drewnoakes/dependency-analyser/master/Documentation/ui-filtered.png)
 
-This plot tells us a great deal about the analysed assembly (in this case, `Drew.DependencyAnalyser.Tests.dll`).
-It requires three non-system assemblies: `Drew.DependencyAnalyser`, `Drew.DependencyAnalyser.Tests` and `nunit.framework`,
-even though `nunit.framework` is not referenced directly.  We can also tell, unsurprisingly, that `Drew.DependencyAnalyser`
+This plot tells us a great deal about the analysed assembly (in this case, `DependencyAnalyser.Tests.dll`).
+It requires three non-system assemblies: `DependencyAnalyser`, `DependencyAnalyser.Tests` and `nunit.framework`,
+even though `nunit.framework` is not referenced directly.  We can also tell, unsurprisingly, that `DependencyAnalyser`
 uses WinForms assemblies.
 
 Note the circular dependency between `System` and `System.Xml`!!!
@@ -50,8 +50,8 @@ A Dot script may look something like this:
       1 -> 3;
       1 -> 17;
       3 -> 15;
-      1 [label="Drew.DependencyAnalyser.Tests"];
-      3 [label="Drew.DependencyAnalyser"];
+      1 [label="DependencyAnalyser.Tests"];
+      3 [label="DependencyAnalyser"];
       15 [label="Interop.WINGRAPHVIZLib"];
       17 [label="nunit.framework"];
     }
