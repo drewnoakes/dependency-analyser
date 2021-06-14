@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.Build.Locator;
@@ -15,9 +16,11 @@ namespace DependencyAnalyser
     {
         public static async Task AnalyseAsync(string solutionPath, DependencyGraph<string> graph, ILogger logger)
         {
-            var instance = MSBuildLocator.RegisterDefaults();
+            var instance = MSBuildLocator.QueryVisualStudioInstances().OrderByDescending(i => i.Version).First();
 
             logger.WriteLine($"Located MSBuild at: {instance.MSBuildPath}");
+
+            MSBuildLocator.RegisterInstance(instance);
 
             using var workspace = MSBuildWorkspace.Create();
 
