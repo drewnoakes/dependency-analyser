@@ -23,7 +23,7 @@ namespace DependencyAnalyser
 
             foreach (var dependantAssemblyName in dependencies)
             {
-                logger.WriteLine("- {dependantAssemblyName.Name}");
+                logger.WriteLine($"- {dependantAssemblyName.Name}");
 
                 if (!graph.AddDependency(assemblyName, dependantAssemblyName.Name))
                 {

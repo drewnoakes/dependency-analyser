@@ -4,64 +4,23 @@ After manually drawing an assembly dependency graph for a twenty-something-proje
 
 Run the application, and open a .NET assembly or solution from the _File|Open..._ menu (or just press <kbd>Ctrl</kbd>+<kbd>O</kbd>).
 
-The analyser will immediately generate a diagram such as the one shown:
+Let's see how it looks if we run the application on itself:
 
-![Example screenshot from .NET Assembly Dependency Analyser graph](https://raw.githubusercontent.com/drewnoakes/dependency-analyser/master/Documentation/ui-unfiltered.png)
+![Example screenshot from .NET Assembly Dependency Analyser graph](img/ui-unfiltered.png)
 
-Most assemblies will reference large numbers of system assemblies, either directly or indirectly.
-In this graph, both the `System` and `mscorlib` assemblies are referenced by almost all other assemblies.
-The diagram is clearer without these explicit references.
+As you can see there is a lot of information here and the graph is impossible to read as-is.
+It's possible to zoom and pan, and you can drag nodes around to make things easier to see,
+but most of the time you'll want to hide assemblies you're not interested in.
 
-See this graph, exported as a [PNG file](https://raw.githubusercontent.com/drewnoakes/dependency-analyser/master/Documentation/many-node-graph.png).
+Using the _Filter..._ command lets us exclude items we don't want to see. Removing several
+`System.*`and other framework assemblies gives a clearer picture:
 
-![Example of the exclude menu showing how to omit selected assemblies from the graph](https://raw.githubusercontent.com/drewnoakes/dependency-analyser/master/Documentation/filter-window.png)
+![A graph showing dependencies when most of the behind-the-scenes assemblies have been removed](img/ui-filtered.png)
 
-Select which assemblies you want to include in the plot and press OK.
-
-![A graph showing dependencies when most of the behind-the-scenes assemblies have been removed](https://raw.githubusercontent.com/drewnoakes/dependency-analyser/master/Documentation/ui-filtered.png)
-
-This plot tells us a great deal about the analysed assembly (in this case, `DependencyAnalyser.Tests.dll`).
-It requires three non-system assemblies: `DependencyAnalyser`, `DependencyAnalyser.Tests` and `nunit.framework`,
-even though `nunit.framework` is not referenced directly.  We can also tell, unsurprisingly, that `DependencyAnalyser`
-uses WinForms assemblies.
-
-Note the [circular dependency between `System` and `System.Xml`](https://stackoverflow.com/q/1316518/24874)!!!
-
-Excluding all `System` assemblies shows all dependent assemblies that must be deployed with the
-selected assembly for it to operate properly.
-
-![A graph showing uncluttered core dependencies when all framework and other supporting assemblies have been removed](https://raw.githubusercontent.com/drewnoakes/dependency-analyser/master/Documentation/four-node-graph.png)
-
-Here's an example of the [SVG output](https://raw.githubusercontent.com/drewnoakes/dependency-analyser/master/Documentation/four-node-graph.svg).
-
-## The graph
-
-The graph is produced via a Dot script.  WinGraphViz is a COM component that generates Dot
-images, and is used by this application.  It must be installed for the .NET dependency analyser
-to work.
-
-A Dot script may look something like this:
-
-    digraph G {
-      size="100,50"
-      center=""
-      ratio=All
-      node[width=.25,hight=.375,fontsize=12,color=lightblue2,style=filled]
-      1 -> 3;
-      1 -> 17;
-      3 -> 15;
-      1 [label="DependencyAnalyser.Tests"];
-      3 [label="DependencyAnalyser"];
-      15 [label="Interop.WINGRAPHVIZLib"];
-      17 [label="nunit.framework"];
-    }
-
-This markup can be seen in the 'Dot Output' tab.
-
-More information on Dot can be found at http://www.graphviz.org/
+You can open either assemblies or MSBuild project/solution files. The latter produces richer data,
+including target frameworks which can be useful for multi-targeting projects.
 
 ## Installation
 
 1. Download zipped binaries on the [releases page](https://github.com/drewnoakes/dependency-analyser/releases) and extract to a folder on your PC.
-2. Run the WinGraphviz installer included in the archive (if you do not already have it installed).
-3. Run `DependencyAnalyser.exe` to start the program.
+2. Run `DependencyAnalyser.exe` to start the program.
