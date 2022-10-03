@@ -7,10 +7,10 @@ namespace DependencyAnalyser
     /// <summary>
     /// Models a directed graph, intended to represent a dependency hierarchy.
     /// </summary>
-    public sealed class DependencyGraph<T>
+    public sealed class DependencyGraph<T> where T : notnull
     {
-        private readonly HashSet<T> _nodes = new HashSet<T>();
-        private readonly Dictionary<T, HashSet<T>> _dependenciesByNode = new Dictionary<T, HashSet<T>>();
+        private readonly HashSet<T> _nodes = new();
+        private readonly Dictionary<T, HashSet<T>> _dependenciesByNode = new();
 
         public bool AddDependency(T dependant, T dependency)
         {
@@ -19,8 +19,7 @@ namespace DependencyAnalyser
             _nodes.Add(dependency);
 
             // get the list of dependencies for this dependant (create if it doesn't exist yet)
-            HashSet<T> dependencySet;
-            if (!_dependenciesByNode.TryGetValue(dependant, out dependencySet))
+            if (!_dependenciesByNode.TryGetValue(dependant, out HashSet<T>? dependencySet))
                 dependencySet = _dependenciesByNode[dependant] = new HashSet<T>();
 
             return dependencySet.Add(dependency);
@@ -30,10 +29,9 @@ namespace DependencyAnalyser
 
         public IEnumerable<T> GetDependenciesForNode(T dependant)
         {
-            HashSet<T> dependencies;
-            return _dependenciesByNode.TryGetValue(dependant, out dependencies)
-                       ? dependencies
-                       : Enumerable.Empty<T>();
+            return _dependenciesByNode.TryGetValue(dependant, out HashSet<T>? dependencies)
+                ? dependencies
+                : Enumerable.Empty<T>();
         }
 
         /// <summary>
@@ -47,8 +45,7 @@ namespace DependencyAnalyser
 
             foreach (var root in _nodes)
             {
-                HashSet<T> children;
-                if (!_dependenciesByNode.TryGetValue(root, out children))
+                if (!_dependenciesByNode.TryGetValue(root, out HashSet<T>? children))
                     continue;
 
                 var childList = children.ToList();

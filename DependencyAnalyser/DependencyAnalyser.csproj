@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <Nullable>enable</Nullable>
-    <LangVersion>9</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Prefer32Bit>true</Prefer32Bit>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>App.ico</ApplicationIcon>
     <Description>Displays dependencies between projects/assemblies as a directed graph.</Description>
     <Company>https://drewnoakes.com</Company>
-    <Copyright>Drew Noakes 2003-2021</Copyright>
+    <Copyright>Drew Noakes 2003-2022</Copyright>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
   </PropertyGroup>

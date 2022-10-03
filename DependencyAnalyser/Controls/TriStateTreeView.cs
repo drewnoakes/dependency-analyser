@@ -177,6 +177,8 @@ namespace DependencyAnalyser.Controls
 
         #region Component Designer generated code
 
+        #nullable disable
+
         /// -----------------------------------------------------------------------------------
         /// <summary> 
         /// Required method for Designer support - do not modify 
@@ -195,6 +197,8 @@ namespace DependencyAnalyser.Controls
             this._images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("_images.ImageStream")));
             this._images.TransparentColor = System.Drawing.Color.Magenta;
         }
+
+        #nullable restore
 
         #endregion
 
@@ -399,13 +403,13 @@ namespace DependencyAnalyser.Controls
                 FindAndCheckNode(child, tag, state);
         }
 
-        public TreeNode FindNodeByTag(object tag)
+        public TreeNode? FindNodeByTag(object tag)
         {
             return (from TreeNode rootNode in Nodes
                 select FindNodeByTag(rootNode, tag)).FirstOrDefault(node => node != null);
         }
 
-        private static TreeNode FindNodeByTag(TreeNode node, object tag)
+        private static TreeNode? FindNodeByTag(TreeNode node, object tag)
         {
             if (node.Tag != null && node.Tag.Equals(tag))
                 return node;

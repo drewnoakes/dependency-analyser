@@ -16,6 +16,9 @@ namespace DependencyAnalyser
             logger.WriteLine("----------------------------------------------------------------");
             logger.WriteLine($"Processing assembly: {assembly.FullName}");
 
+            if (assembly.FullName is null)
+                return;
+
             var assemblyName = assembly.FullName.Split(',')[0];
             var dependencies = assembly.GetReferencedAssemblies();
 
@@ -23,6 +26,9 @@ namespace DependencyAnalyser
 
             foreach (var dependantAssemblyName in dependencies)
             {
+                if (dependantAssemblyName.Name is null)
+                    continue;
+
                 logger.WriteLine($"- {dependantAssemblyName.Name}");
 
                 if (!graph.AddDependency(assemblyName, dependantAssemblyName.Name))
@@ -46,13 +52,18 @@ namespace DependencyAnalyser
 
             static string GetAssemblyPath(Assembly assembly)
             {
-                var assemblyPath = Path.GetDirectoryName(assembly.CodeBase);
+                var assemblyPath = Path.GetDirectoryName(assembly.Location);
+
+                if (assemblyPath is null)
+                    throw new("Assembly directory not known.");
+
                 if (assemblyPath.StartsWith("file:"))
                 {
-                    assemblyPath = assemblyPath.Substring(5);
+                    assemblyPath = assemblyPath[5..];
                     while (assemblyPath.StartsWith(@"\") || assemblyPath.StartsWith("/"))
-                        assemblyPath = assemblyPath.Substring(1);
+                        assemblyPath = assemblyPath[1..];
                 }
+
                 return assemblyPath;
             }
 

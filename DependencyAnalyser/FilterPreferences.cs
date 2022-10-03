@@ -6,8 +6,8 @@ namespace DependencyAnalyser
 {
     public sealed class FilterPreferences
     {
-        private readonly HashSet<string> _allNames = new HashSet<string>();
-        private readonly HashSet<string> _includedNames = new HashSet<string>();
+        private readonly HashSet<string> _allNames = new();
+        private readonly HashSet<string> _includedNames = new();
 
         public bool IncludeInPlot(string name)
         {
