@@ -39,7 +39,9 @@ namespace DependencyAnalyser
             MessageBox.Show($"""
                 .NET Assembly Dependency Analyser v{Assembly.GetExecutingAssembly().GetName().Version}
 
-                Copyright Drew Noakes 2003-{DateTime.Now.Year}.\n\nThanks to John Maher.
+                Copyright Drew Noakes 2003-{DateTime.Now.Year}.
+
+                Thanks to John Maher.
 
                 Latest version at https://github.com/drewnoakes/dependency-analyser
 
