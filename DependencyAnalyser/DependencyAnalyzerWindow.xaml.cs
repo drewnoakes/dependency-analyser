@@ -40,7 +40,7 @@ namespace DependencyAnalyser
 
                 Copyright Drew Noakes 2003-{DateTime.Now.Year}.\n\nThanks to John Maher.
 
-                Latest version at http://drewnoakes.com/code/dependency-analyser/
+                Latest version at https://github.com/drewnoakes/dependency-analyser
 
                 Charts provided using AutomaticGraphLayout. Dependency analysis provided by Roslyn.
                 """);
