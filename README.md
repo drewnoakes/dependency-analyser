@@ -2,7 +2,7 @@
 
 # .NET Dependency Analyser
 
-After manually drawing an assembly dependency graph for a twenty-something-project solution in 2003, this software was born.
+Shows the dependencies between .NET projects and assemblies as a graph.
 
 ## How it works
 
