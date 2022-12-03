@@ -35,7 +35,15 @@ namespace DependencyAnalyser
         private void OnAboutClicked(object sender, RoutedEventArgs e)
         {
             // TODO make this a dialog with a link button
-            MessageBox.Show($".NET Assembly Dependency Analyser v{Assembly.GetExecutingAssembly().GetName().Version}\n\nCopyright Drew Noakes 2003-{DateTime.Now.Year}.\n\nThanks to John Maher.\n\nLatest version at http://drewnoakes.com/code/dependency-analyser/\nCharts provided using Dot & Wingraphviz.");
+            MessageBox.Show($"""
+                .NET Assembly Dependency Analyser v{Assembly.GetExecutingAssembly().GetName().Version}
+
+                Copyright Drew Noakes 2003-{DateTime.Now.Year}.\n\nThanks to John Maher.
+
+                Latest version at http://drewnoakes.com/code/dependency-analyser/
+
+                Charts provided using AutomaticGraphLayout. Dependency analysis provided by Roslyn.
+                """);
         }
 
         private void OnFilterClicked(object sender, RoutedEventArgs e)
