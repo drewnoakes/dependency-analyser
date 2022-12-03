@@ -175,9 +175,12 @@ namespace DependencyAnalyser
 
         private void OnSimplifyClicked(object sender, RoutedEventArgs e)
         {
-            _dependencyGraph.TransitiveReduce();
+            using (WaitCursor())
+            {
+                _dependencyGraph.TransitiveReduce();
 
-            UpdateDiagram();
+                UpdateDiagram();
+            }
         }
     }
 }
