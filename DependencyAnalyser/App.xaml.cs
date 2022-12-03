@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 
-namespace DependencyAnalyser
+namespace DependencyAnalyser;
+
+public partial class App : Application
 {
-    public partial class App : Application
-    {
-    }
 }
