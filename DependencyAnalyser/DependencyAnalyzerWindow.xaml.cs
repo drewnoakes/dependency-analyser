@@ -70,7 +70,7 @@ namespace DependencyAnalyser
         private IDisposable WaitCursor()
         {
             var reverter = new CursorReverter(Cursor, this);
-            Cursor = Cursors.Wait;
+            Cursor = Cursors.AppStarting;
             return reverter;
         }
 
