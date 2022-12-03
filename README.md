@@ -24,6 +24,29 @@ Using the _Filter..._ command lets us exclude items we don't want to see. Removi
 You can open either assemblies or MSBuild project/solution files. The latter produces richer data,
 including target frameworks which can be useful for multi-targeting projects.
 
+## Mermaid support
+
+The _File_ menu has an option to copy the diagram using the mermaid syntax, which is [supported on GitHub](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/).
+
+Our example from above would be:
+
+```mermaid
+flowchart TD
+    DependencyAnalyser --> Microsoft.Msagl.WpfGraphControl
+    DependencyAnalyser --> AutomaticGraphLayout.Drawing
+    DependencyAnalyser --> Microsoft.Build.Locator
+    DependencyAnalyser --> Microsoft.CodeAnalysis.Workspaces
+    DependencyAnalyser --> Microsoft.CodeAnalysis.Workspaces.MSBuild
+    Microsoft.Msagl.WpfGraphControl --> AutomaticGraphLayout.Drawing
+    Microsoft.Msagl.WpfGraphControl --> AutomaticGraphLayout
+    AutomaticGraphLayout.Drawing --> AutomaticGraphLayout
+    Microsoft.CodeAnalysis.Workspaces --> Microsoft.CodeAnalysis
+    Microsoft.CodeAnalysis.Workspaces.MSBuild --> Microsoft.Build
+    Microsoft.CodeAnalysis.Workspaces.MSBuild --> Microsoft.CodeAnalysis
+    Microsoft.CodeAnalysis.Workspaces.MSBuild --> Microsoft.Build.Framework
+    Microsoft.CodeAnalysis.Workspaces.MSBuild --> Microsoft.CodeAnalysis.Workspaces
+```
+
 ## Installation
 
 1. Download zipped binaries on the [releases page](https://github.com/drewnoakes/dependency-analyser/releases) and extract to a folder on your PC.
