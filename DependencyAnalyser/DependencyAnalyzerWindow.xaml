@@ -30,18 +30,18 @@
       <!-- TODO convert to commands and handle CanExecute -->
       <!-- TODO bind keyboard shortcuts -->
       <MenuItem Header="_File">
-        <MenuItem Header="_Open..." Click="OnOpenClicked"></MenuItem>
-        <MenuItem Header="_Merge..." Click="OnMergeClicked"></MenuItem>
+        <MenuItem Header="_Open..." Click="OnOpenClicked" />
+        <MenuItem Header="_Merge..." Click="OnMergeClicked" />
         <!--
-        <MenuItem Header="Save _PNG..."></MenuItem>
-        <MenuItem Header="Save _SVG..."></MenuItem>
+        <MenuItem Header="Save _PNG..." />
+        <MenuItem Header="Save _SVG..." />
         -->
         <Separator />
-        <MenuItem Header="E_xit" Click="OnExitClicked"></MenuItem>
+        <MenuItem Header="E_xit" Click="OnExitClicked" />
       </MenuItem>
-      <MenuItem Header="_Simplify" Click="OnSimplifyClicked"></MenuItem>
-      <MenuItem Header="F_ilter..." Click="OnFilterClicked"></MenuItem>
-      <MenuItem Header="_About..." Click="OnAboutClicked"></MenuItem>
+      <MenuItem Header="_Simplify" Click="OnSimplifyClicked" />
+      <MenuItem Header="F_ilter..." Click="OnFilterClicked" />
+      <MenuItem Header="_About..." Click="OnAboutClicked" />
     </Menu>
 
     <TabControl TabStripPlacement="Bottom">
