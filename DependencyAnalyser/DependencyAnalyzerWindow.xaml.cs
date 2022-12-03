@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using Microsoft.Msagl.Drawing;
+using System.Text;
 
 namespace DependencyAnalyser
 {
@@ -171,6 +172,29 @@ namespace DependencyAnalyser
 
 //            _graphControl.InvalidateMeasure();
 //            _graphControl.InvalidateVisual();
+        }
+
+        private void OnCopyMermaidCodeClicked(object sender, RoutedEventArgs e)
+        {
+            StringBuilder sb = new();
+
+            sb.AppendLine("flowchart TD");
+
+            foreach (var depending in _dependencyGraph.Nodes)
+            {
+                if (!_filterPreferences.IncludeInPlot(depending))
+                    continue;
+
+                foreach (var depended in _dependencyGraph.GetDependenciesForNode(depending))
+                {
+                    if (!_filterPreferences.IncludeInPlot(depended))
+                        continue;
+
+                    sb.Append("    ").Append(depending).Append(" --> ").Append(depended).AppendLine();
+                }
+            }
+
+            Clipboard.SetText(sb.ToString());
         }
 
         private void OnSimplifyClicked(object sender, RoutedEventArgs e)

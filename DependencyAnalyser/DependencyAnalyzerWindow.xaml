@@ -37,6 +37,8 @@
         <MenuItem Header="Save _SVG..." />
         -->
         <Separator />
+        <MenuItem Header="_Copy Mermaid code" Click="OnCopyMermaidCodeClicked" />
+        <Separator />
         <MenuItem Header="E_xit" Click="OnExitClicked" />
       </MenuItem>
       <MenuItem Header="_Simplify" Click="OnSimplifyClicked" />
