@@ -261,7 +261,7 @@ namespace DependencyAnalyser.Controls
 
             var hitTestInfo = new TV_HITTESTINFO { pt = PointToClient(MousePosition) };
 
-            SendMessage(Handle, TreeViewMessages.TVM_HITTEST, 0, ref hitTestInfo);
+            _ = SendMessage(Handle, TreeViewMessages.TVM_HITTEST, 0, ref hitTestInfo);
 
             if ((hitTestInfo.flags & TVHit.OnItemIcon) == TVHit.OnItemIcon)
             {

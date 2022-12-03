@@ -61,7 +61,7 @@ namespace DependencyAnalyser
         public void SetInclusion(string name, bool include)
         {
             if (!_allNames.Contains(name))
-                throw new ArgumentException();
+                throw new ArgumentException("Unknown name.", nameof(name));
             
             if (include)
                 _includedNames.Add(name);

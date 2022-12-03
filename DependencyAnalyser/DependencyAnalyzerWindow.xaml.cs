@@ -15,7 +15,7 @@ namespace DependencyAnalyser
         private readonly StringBuilderLogger _logger = new();
 
         private DependencyGraph<string> _dependencyGraph = new();
-        
+
         public DependencyAnalyzerWindow()
         {
             _openFileDialog = new OpenFileDialog()
@@ -168,6 +168,7 @@ namespace DependencyAnalyser
 
             _graphControl.Graph = null;
             _graphControl.Graph = graph;
+
 //            _graphControl.InvalidateMeasure();
 //            _graphControl.InvalidateVisual();
         }

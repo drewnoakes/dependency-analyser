@@ -23,7 +23,7 @@
     </Style>
 
   </Window.Resources>
-    
+
   <DockPanel>
 
     <Menu DockPanel.Dock="Top">
