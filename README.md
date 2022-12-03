@@ -24,6 +24,26 @@ Using the _Filter..._ command lets us exclude items we don't want to see. Removi
 You can open either assemblies or MSBuild project/solution files. The latter produces richer data,
 including target frameworks which can be useful for multi-targeting projects.
 
+## Simplify
+
+The simplify button removes any "redundant" edges from the graph. For example if we started with:
+
+```mermaid
+flowchart LR
+   A --> B
+   A --> C
+   B --> C
+```
+
+The dependency between `A` and `C` is shown two ways here. Both directly and indirectly (via `B`). The simplify function removes any direct reference which is also made indirectly, which can clean up the graph considerably. Our example would then become:
+
+
+```mermaid
+flowchart LR
+   A --> B
+   B --> C
+```
+
 ## Mermaid support
 
 The _File_ menu has an option to copy the diagram using the mermaid syntax, which is [supported on GitHub](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/).
