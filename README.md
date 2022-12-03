@@ -1,3 +1,7 @@
+<img src="img/logo.svg" width="100" />
+
+# .NET Dependency Analyser
+
 After manually drawing an assembly dependency graph for a twenty-something-project solution in 2003, this software was born.
 
 ## How it works

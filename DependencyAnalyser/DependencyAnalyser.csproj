@@ -13,6 +13,7 @@
     <Copyright>Drew Noakes 2003-2022</Copyright>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>..\img\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
