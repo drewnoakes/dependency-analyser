@@ -2,7 +2,7 @@ After manually drawing an assembly dependency graph for a twenty-something-proje
 
 ## How it works
 
-Run the application, and open a .NET assembly or solution from the _File|Open..._ menu (or just press <kbd>Ctrl</kbd>+<kbd>O</kbd>).
+Run the application, and open a .NET assembly, project or solution from the _File|Open..._ menu (or just press <kbd>Ctrl</kbd>+<kbd>O</kbd>).
 
 Let's see how it looks if we run the application on itself:
 
