@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.Win32;
 using Microsoft.Msagl.Drawing;
-using System.Text;
+using Microsoft.Win32;
 
 namespace DependencyAnalyser;
 

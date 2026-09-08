@@ -208,6 +208,7 @@ public class TriStateTreeView : TreeView
     /// 
     /// </summary>
     [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public new bool CheckBoxes
     {
         get { return base.CheckBoxes; }
@@ -219,6 +220,7 @@ public class TriStateTreeView : TreeView
     /// 
     /// </summary>
     [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public new int ImageIndex
     {
         get { return base.ImageIndex; }
@@ -230,7 +232,8 @@ public class TriStateTreeView : TreeView
     /// 
     /// </summary>
     [Browsable(false)]
-    public new ImageList ImageList
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public new ImageList? ImageList
     {
         get { return base.ImageList; }
         set { base.ImageList = value; }
@@ -241,6 +244,7 @@ public class TriStateTreeView : TreeView
     /// 
     /// </summary>
     [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public new int SelectedImageIndex
     {
         get { return base.SelectedImageIndex; }
@@ -280,8 +284,8 @@ public class TriStateTreeView : TreeView
     {
         base.OnKeyDown(e);
 
-        if (e.KeyCode == Keys.Space)
-            ChangeNodeState(SelectedNode);
+        if (e.KeyCode == Keys.Space && SelectedNode is {} node)
+            ChangeNodeState(node);
     }
 
     #endregion
@@ -307,9 +311,9 @@ public class TriStateTreeView : TreeView
     /// set state based on children's state.
     /// </summary>
     /// <param name="node">Parent node</param>
-    private void ChangeParent(TreeNode node)
+    private void ChangeParent(TreeNode? node)
     {
-        if (node == null)
+        if (node?.FirstNode is null)
             return;
 
         CheckState state = GetChecked(node.FirstNode);

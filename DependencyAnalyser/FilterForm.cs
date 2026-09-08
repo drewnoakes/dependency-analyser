@@ -27,7 +27,7 @@ public sealed partial class FilterForm : Form
                 {
                     var bit = bits[i];
                     var bitNode = parent.ContainsKey(bit)
-                        ? parent[bit]
+                        ? parent[bit]!
                         : parent.Add(bit, bit);
                     parent = bitNode.Nodes;
                 }
@@ -39,13 +39,13 @@ public sealed partial class FilterForm : Form
             var bits = name.Split('.');
             var parent = _tree.Nodes;
             for (var i = 0; i < bits.Length - 1; i++)
-                parent = parent[bits[i]].Nodes;
+                parent = parent[bits[i]]!.Nodes;
             var leafName = bits[bits.Length - 1];
             TreeNode leafNode;
             if (parent.ContainsKey(leafName))
             {
-                leafNode = parent[leafName].Nodes.Insert(0, leafName, "<exactly>");
-                leafNode.ToolTipText = $"Select's {name} without child namespaces";
+                leafNode = parent[leafName]!.Nodes.Insert(0, leafName, "<exactly>");
+                leafNode.ToolTipText = $"Selects {name} without child namespaces";
             }
             else
             {

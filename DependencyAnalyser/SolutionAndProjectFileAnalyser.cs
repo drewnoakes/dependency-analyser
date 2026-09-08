@@ -30,8 +30,8 @@ public static class SolutionAndProjectFileAnalyser
         }
 
         using var workspace = MSBuildWorkspace.Create();
-
-        workspace.WorkspaceFailed += (o, e) => logger.WriteLine(e.Diagnostic.Message);
+        using var workspaceFailedRegistration =
+            workspace.RegisterWorkspaceFailedHandler(e => logger.WriteLine(e.Diagnostic.Message));
 
         if (filePath.EndsWith(".sln"))
         {
