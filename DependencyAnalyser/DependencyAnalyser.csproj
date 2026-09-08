@@ -10,7 +10,7 @@
     <ApplicationIcon>App.ico</ApplicationIcon>
     <Description>Displays dependencies between projects/assemblies as a directed graph.</Description>
     <Company>https://drewnoakes.com</Company>
-    <Copyright>Drew Noakes 2003-2022</Copyright>
+    <Copyright>Drew Noakes 2003-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>..\img\logo.ico</ApplicationIcon>
