@@ -21,8 +21,8 @@ public partial class DependencyAnalyzerWindow
     {
         _openFileDialog = new OpenFileDialog()
         {
-            Filter = "All supported files|*.sln;*.csproj;*.vbproj;*.fsproj;*.exe;*.dll|" +
-                     "Solution files (*.sln)|*.sln|" +
+            Filter = "All supported files|*.sln;*.slnx;*.slnf;*.csproj;*.vbproj;*.fsproj;*.exe;*.dll|" +
+                     "Solution files (*.sln;*.slnx;*.slnf)|*.sln;*.slnx;*.slnf|" +
                      "Project files (*.csproj)|*.csproj;*.vbproj;*.fsproj|" +
                      "Assemblies (*.dll)|*.dll|" +
                      "Assemblies (*.exe)|*.exe|" +
@@ -119,7 +119,7 @@ public partial class DependencyAnalyzerWindow
 
             using (WaitCursor())
             {
-                if (fileName.EndsWith(".sln") || fileName.EndsWith("proj"))
+                if (SolutionAndProjectFileAnalyser.CanAnalyse(fileName))
                 {
                     await SolutionAndProjectFileAnalyser.AnalyseAsync(fileName, _dependencyGraph, _logger);
                 }

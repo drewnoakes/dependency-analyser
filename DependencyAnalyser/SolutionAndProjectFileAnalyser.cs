@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,11 +11,18 @@ using Microsoft.CodeAnalysis.MSBuild;
 namespace DependencyAnalyser;
 
 /// <summary>
-/// Builds a DependencyGraph from a given Visual Studio solution (.sln) or project (e.g. .csproj) file.
+/// Builds a DependencyGraph from a given Visual Studio solution or project file.
 /// </summary>
 public static class SolutionAndProjectFileAnalyser
 {
     private static bool _isRegistered;
+
+    public static bool CanAnalyse(string filePath)
+    {
+        var extension = Path.GetExtension(filePath);
+
+        return IsSolutionExtension(extension) || IsProjectExtension(extension);
+    }
 
     public static async Task AnalyseAsync(string filePath, DependencyGraph<string> graph, ILogger logger)
     {
@@ -33,17 +41,23 @@ public static class SolutionAndProjectFileAnalyser
         using var workspaceFailedRegistration =
             workspace.RegisterWorkspaceFailedHandler(e => logger.WriteLine(e.Diagnostic.Message));
 
-        if (filePath.EndsWith(".sln"))
+        var extension = Path.GetExtension(filePath);
+
+        if (IsSolutionExtension(extension))
         {
             logger.WriteLine($"Loading solution: {filePath}");
             await workspace.OpenSolutionAsync(filePath);
             logger.WriteLine($"Finished loading solution: {filePath}");
         }
-        else
+        else if (IsProjectExtension(extension))
         {
             logger.WriteLine($"Loading project: {filePath}");
             await workspace.OpenProjectAsync(filePath);
             logger.WriteLine($"Finished loading project: {filePath}");
+        }
+        else
+        {
+            throw new ArgumentException($"Unsupported solution or project file extension: '{extension}'.", nameof(filePath));
         }
 
         var projectById = new Dictionary<Guid, Project>();
@@ -62,5 +76,17 @@ public static class SolutionAndProjectFileAnalyser
                 graph.AddDependency(project.Name, referencedProject.Name);
             }
         }
+    }
+
+    private static bool IsSolutionExtension(string extension)
+    {
+        return extension.Equals(".sln", StringComparison.OrdinalIgnoreCase)
+            || extension.Equals(".slnx", StringComparison.OrdinalIgnoreCase)
+            || extension.Equals(".slnf", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsProjectExtension(string extension)
+    {
+        return extension.EndsWith("proj", StringComparison.OrdinalIgnoreCase);
     }
 }
