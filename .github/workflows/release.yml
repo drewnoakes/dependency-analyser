@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "[0-9]*.[0-9]*"
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      NUGET_XMLDOC_MODE: skip
+      RELEASE_TAG: ${{ github.ref_name }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Validate release tag
+        id: version
+        shell: pwsh
+        run: |
+          if ($env:RELEASE_TAG -notmatch '^\d+\.\d+(?:\.\d+)?(?:-[0-9A-Za-z.-]+)?$') {
+            throw "Release tag '$env:RELEASE_TAG' is not a supported version."
+          }
+
+          "version=$env:RELEASE_TAG" >> $env:GITHUB_OUTPUT
+
+      - name: Restore
+        run: dotnet restore DependencyAnalyser\DependencyAnalyser.csproj --runtime win-x64
+
+      - name: Publish
+        shell: pwsh
+        run: |
+          $packageName = "dependency-analyzer-v${{ steps.version.outputs.version }}"
+          $packageDirectory = Join-Path $env:RUNNER_TEMP $packageName
+
+          dotnet publish DependencyAnalyser\DependencyAnalyser.csproj `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained false `
+            --no-restore `
+            --nologo `
+            --verbosity minimal `
+            -p:Version=${{ steps.version.outputs.version }} `
+            -p:ContinuousIntegrationBuild=true `
+            -p:EnforceCodeStyleInBuild=true `
+            -p:TreatWarningsAsErrors=true `
+            -p:DebugType=None `
+            -p:DebugSymbols=false `
+            --output $packageDirectory
+
+          New-Item -ItemType Directory -Path artifacts | Out-Null
+          Compress-Archive `
+            -Path $packageDirectory `
+            -DestinationPath "artifacts\$packageName.zip"
+
+      - name: Create GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $asset = Get-ChildItem artifacts\*.zip -ErrorAction Stop
+
+          gh release view $env:RELEASE_TAG *> $null
+
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $env:RELEASE_TAG $asset.FullName --clobber
+          }
+          else {
+            gh release create $env:RELEASE_TAG $asset.FullName `
+              --verify-tag `
+              --title $env:RELEASE_TAG `
+              --generate-notes
+          }

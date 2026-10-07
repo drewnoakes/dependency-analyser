@@ -2,6 +2,9 @@
 
 # .NET Dependency Analyser
 
+[![CI](https://github.com/drewnoakes/dependency-analyser/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/drewnoakes/dependency-analyser/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/drewnoakes/dependency-analyser)](https://github.com/drewnoakes/dependency-analyser/releases/latest)
+
 Shows the dependencies between .NET projects and assemblies as a graph.
 
 ## How it works
@@ -69,5 +72,6 @@ flowchart TD
 
 ## Installation
 
-1. Download zipped binaries on the [releases page](https://github.com/drewnoakes/dependency-analyser/releases) and extract to a folder on your PC.
-2. Run `DependencyAnalyser.exe` to start the program.
+1. Install the [.NET 10 Desktop Runtime for Windows x64](https://dotnet.microsoft.com/download/dotnet/10.0).
+2. Download the zipped binaries from the [releases page](https://github.com/drewnoakes/dependency-analyser/releases) and extract them to a folder on your PC.
+3. Run `DependencyAnalyser.exe` to start the program.
